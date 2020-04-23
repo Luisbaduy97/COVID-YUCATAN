@@ -13,8 +13,11 @@ import pandas as pd
 import numpy as np
 import plotly.graph_objects as go
 import flask
-
 #import plotly.graph_objects as go
+
+server = flask.Flask(__name__) # define flask app.server
+
+app = dash.Dash(__name__, server=server) # call flask server
 
 covid = pd.read_csv('http://187.191.75.115/gobmx/salud/datos_abiertos/datos_abiertos_covid19.zip')
 coords = pd.read_csv('coordenadas.csv')
@@ -28,10 +31,17 @@ d2 = {n2:m2 for n2, m2 in zip(numb, diag)}
 
 yucatan = covid[covid['ENTIDAD_RES'] == 31]
 
-yuc2 = yucatan.groupby(by=['MUNICIPIO_RES'])['RESULTADO'].value_counts().rename(columns={'RESULTADO':'SUMA'}).reset_index().rename(columns={0:'SUMA'})
+#yuc2 = yucatan.groupby(by=['MUNICIPIO_RES'])['RESULTADO'].value_counts().rename(columns={'RESULTADO':'SUMA'}).reset_index().rename(columns={0:'SUMA'})
+#yuc2['MUNICIPIO'] = [d.get(m) for m in yuc2['MUNICIPIO_RES'].values.tolist()]
+#yuc2['RESULTADO2'] = [d2.get(m) for m in yuc2['RESULTADO'].values.tolist()]
+#yuc2
+
+yuc2 = yucatan.groupby(by=['MUNICIPIO_RES'])['RESULTADO'].value_counts()
+#yuc2.rename(columns={0: "SUMA"})#.reset_index()
+yuc2 = pd.Series(yuc2.values, index = yuc2.index).reset_index().rename(columns={0: 'SUMA'})
 yuc2['MUNICIPIO'] = [d.get(m) for m in yuc2['MUNICIPIO_RES'].values.tolist()]
 yuc2['RESULTADO2'] = [d2.get(m) for m in yuc2['RESULTADO'].values.tolist()]
-#yuc2
+
 
 muni = np.unique(yuc2['MUNICIPIO'])
 pos = []
@@ -59,7 +69,7 @@ lat = {v:t for v, t in zip(yuc_coords.Municipio, yuc_coords.lat)}
 lon = {v:t for v, t in zip(yuc_coords.Municipio, yuc_coords.lon)}
 lat_muni = [lat.get(v) for v in muni]
 lon_muni = [lon.get(v) for v in muni]
-#dataf =
+#dataf = 
 
 data_f = pd.DataFrame()
 data_f['Municipio'] = muni
@@ -112,15 +122,27 @@ fig2.update_layout(title="Número de casos por enfermedad y sexo",
         color="#7f7f7f"), title_x=0.5)
 #fig2.show()
 
-server = flask.Flask(__name__) # define flask app.server
+#app = dash.Dash()
+        
 
-app = dash.Dash(__name__, server=server) # call flask server
-
-app = dash.Dash()
 
 app.layout = html.Div([html.Div(children = [html.H1('Mapa de datos en Yucatán'), dcc.Graph(id='example', figure = fig)]),
     html.Div(children = [html.H1('Casos confirmados por enfermedad y género'), dcc.Graph(id='disease', figure = fig2)])])
 
 
-#if __name__ == '__main__':
-#    app.run_server(debug=True)
+# local
+if __name__ == '__main__':
+     app.run_server(debug=True)
+
+# gunicorn
+#app = app.server
+
+
+
+
+
+
+
+
+
+
