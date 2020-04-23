@@ -12,6 +12,8 @@ import dash_html_components as html
 import pandas as pd
 import numpy as np
 import plotly.graph_objects as go
+import flask
+
 #import plotly.graph_objects as go
 
 covid = pd.read_csv('http://187.191.75.115/gobmx/salud/datos_abiertos/datos_abiertos_covid19.zip')
@@ -57,7 +59,7 @@ lat = {v:t for v, t in zip(yuc_coords.Municipio, yuc_coords.lat)}
 lon = {v:t for v, t in zip(yuc_coords.Municipio, yuc_coords.lon)}
 lat_muni = [lat.get(v) for v in muni]
 lon_muni = [lon.get(v) for v in muni]
-#dataf = 
+#dataf =
 
 data_f = pd.DataFrame()
 data_f['Municipio'] = muni
@@ -110,22 +112,15 @@ fig2.update_layout(title="Número de casos por enfermedad y sexo",
         color="#7f7f7f"), title_x=0.5)
 #fig2.show()
 
+server = flask.Flask(__name__) # define flask app.server
+
+app = dash.Dash(__name__, server=server) # call flask server
+
 app = dash.Dash()
 
 app.layout = html.Div([html.Div(children = [html.H1('Mapa de datos en Yucatán'), dcc.Graph(id='example', figure = fig)]),
     html.Div(children = [html.H1('Casos confirmados por enfermedad y género'), dcc.Graph(id='disease', figure = fig2)])])
 
 
-if __name__ == '__main__':
-    app.run_server(debug=True)
-
-
-
-
-
-
-
-
-
-
-
+#if __name__ == '__main__':
+#    app.run_server(debug=True)
