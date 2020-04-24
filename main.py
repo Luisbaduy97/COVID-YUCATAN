@@ -12,12 +12,12 @@ import dash_html_components as html
 import pandas as pd
 import numpy as np
 import plotly.graph_objects as go
-#import flask
+import flask
 #import plotly.graph_objects as go
 
-#server = flask.Flask(__name__) # define flask app.server
+server = flask.Flask(__name__) # define flask app.server
 
-#app = dash.Dash(__name__, server=server) # call flask server
+app = dash.Dash(__name__, server=server) # call flask server
 
 covid = pd.read_csv('http://187.191.75.115/gobmx/salud/datos_abiertos/datos_abiertos_covid19.zip', encoding='ANSI')
 coords = pd.read_csv('coordenadas.csv')
@@ -69,7 +69,7 @@ lat = {v:t for v, t in zip(yuc_coords.Municipio, yuc_coords.lat)}
 lon = {v:t for v, t in zip(yuc_coords.Municipio, yuc_coords.lon)}
 lat_muni = [lat.get(v) for v in muni]
 lon_muni = [lon.get(v) for v in muni]
-#dataf = 
+#dataf =
 
 data_f = pd.DataFrame()
 data_f['Municipio'] = muni
@@ -159,13 +159,13 @@ figx.update_xaxes(rangeslider_visible=True)
 #figx.show()
 
 #app = dash.Dash()
-app = dash.Dash(__name__)
+#app = dash.Dash(__name__)
 
-        
+
 
 app.layout = html.Div([html.Div(children = [html.H1('Casos acumulados en Yucatán'), dcc.Graph(id='acumulado', figure = figx)]),
     html.Div(children = [html.H1('Mapa de datos en Yucatán'), dcc.Graph(id='mapa', figure = fig)]),
-    html.Div(children = [html.H1('Casos confirmados por enfermedad y género'), dcc.Graph(id='disease', figure = fig2)])], style = {'background-color': '#2a1a5e', 
+    html.Div(children = [html.H1('Casos confirmados por enfermedad y género'), dcc.Graph(id='disease', figure = fig2)])], style = {'background-color': '#2a1a5e',
                                                                                                                                    'text-align': 'center', 'color': 'white', 'margin-left': 'auto', 'margin-right':'auto'})
 
 
@@ -176,13 +176,3 @@ if __name__ == '__main__':
 
 # gunicorn
 #app = app.server
-
-
-
-
-
-
-
-
-
-
