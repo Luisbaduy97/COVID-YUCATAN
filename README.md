@@ -14,3 +14,11 @@ The purpose of this project is to be able to visualize the data of the State of 
   <img src = 'https://github.com/Luisbaduy97/COVID-YUCATAN/blob/master/acumulado.png'>
 </div>
 
+<p>
+  You can see the accumulated cases in the state, both positive and negative.
+</p>
+
+<div align = 'center'>
+  <img src = 'https://github.com/Luisbaduy97/COVID-YUCATAN/blob/master/mapa.png'>
+</div>
+
