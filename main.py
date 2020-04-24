@@ -13,7 +13,7 @@ server = flask.Flask(__name__) # define flask app.server
 
 app = dash.Dash(__name__, server=server) # call flask server
 
-covid = pd.read_csv('http://187.191.75.115/gobmx/salud/datos_abiertos/datos_abiertos_covid19.zip', encoding='ANSI')
+covid = pd.read_csv('http://187.191.75.115/gobmx/salud/datos_abiertos/datos_abiertos_covid19.zip', encoding="ISO-8859-1")
 coords = pd.read_csv('coordenadas.csv')
 yuc_coords = coords[coords['Num_Ent'] == 31]
 
