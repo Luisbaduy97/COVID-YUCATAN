@@ -12,14 +12,14 @@ import dash_html_components as html
 import pandas as pd
 import numpy as np
 import plotly.graph_objects as go
-import flask
+#import flask
 #import plotly.graph_objects as go
 
-server = flask.Flask(__name__) # define flask app.server
+#server = flask.Flask(__name__) # define flask app.server
 
-app = dash.Dash(__name__, server=server) # call flask server
+#app = dash.Dash(__name__, server=server) # call flask server
 
-covid = pd.read_csv('http://187.191.75.115/gobmx/salud/datos_abiertos/datos_abiertos_covid19.zip')
+covid = pd.read_csv('http://187.191.75.115/gobmx/salud/datos_abiertos/datos_abiertos_covid19.zip', encoding='ANSI')
 coords = pd.read_csv('coordenadas.csv')
 yuc_coords = coords[coords['Num_Ent'] == 31]
 
@@ -88,7 +88,7 @@ fig = px.scatter_mapbox(data_f, lat="Latitud", lon="Longitud", hover_name="Munic
                         color_discrete_sequence=["red"], zoom=8, height=500, size='Tamaño', hover_data=["Positivos", "Negativos", "Por confirmar"],
                        center={'lat':lat.get('Mérida'), 'lon':lon.get('Mérida')})
 fig.update_layout(mapbox_style="open-street-map")
-fig.update_layout(margin={"r":0,"t":0,"l":0,"b":0})
+fig.update_layout(margin={"r":100,"t":0,"l":100,"b":0})
 
 sexo_dict = {1:'Mujer', 2:'Hombre', 3:'No especificado'}
 
@@ -115,19 +115,59 @@ fig2.add_trace(go.Histogram(histfunc="count", y=epoc['EPOC'], x=epoc['Gender'], 
 fig2.add_trace(go.Histogram(histfunc="count", y=hiper['HIPERTENSION'], x=hiper['Gender'], name="HIPERTENSION"))
 fig2.add_trace(go.Histogram(histfunc="count", y=ob['OBESIDAD'], x=ob['Gender'], name="OBESIDAD"))
 fig2.add_trace(go.Histogram(histfunc="count", y=car['CARDIOVASCULAR'], x=car['Gender'], name="CARDIOVASCULAR"))
-fig2.update_layout(title="Número de casos por enfermedad y sexo",
-    font=dict(
-        family="Courier New, monospace",
-        size=18,
-        color="#7f7f7f"), title_x=0.5)
+fig2.update_layout(title="Número de casos por enfermedad y sexo",title_x=0.5, margin={"r":350,"t":100,"l":400,"b":50})
 #fig2.show()
 
+
+
+####################################
+fi = yucatan[(yucatan['RESULTADO'] == 1) & (yucatan['FECHA_INGRESO'] != '9999-99-99')]
+fi['SEX'] = [sexo_dict.get(v) for v in fi['SEXO'].values.tolist()]
+fi2 = fi.groupby(['FECHA_INGRESO'])['RESULTADO'].value_counts()
+fii = pd.Series(fi2.values, index = fi2.index).reset_index().rename(columns={0: 'SUMA'})
+fii['ACUMULADO'] = fii['SUMA'].cumsum() #acumulado de casos positivos
+
+
+#acumalo de casos negativos
+ni = yucatan[(yucatan['RESULTADO'] == 2) & (yucatan['FECHA_INGRESO'] != '9999-99-99')]
+ni['SEX'] = [sexo_dict.get(v) for v in ni['SEXO'].values.tolist()]
+ni2 = ni.groupby(['FECHA_INGRESO'])['RESULTADO'].value_counts()
+nii = pd.Series(ni2.values, index = ni2.index).reset_index().rename(columns={0: 'SUMA'})
+nii['ACUMULADO'] = nii['SUMA'].cumsum() #acumulado de casos negativos
+
+#acumulado de casos por confirmar
+#pi = yucatan[(yucatan['RESULTADO'] == 3) & (yucatan['FECHA_INGRESO'] != '9999-99-99')]
+#pi['SEX'] = [sexo_dict.get(v) for v in pi['SEXO'].values.tolist()]
+#pi2 = pi.groupby(['FECHA_INGRESO'])['RESULTADO'].value_counts()
+#pii = pd.Series(pi2.values, index = pi2.index).reset_index().rename(columns={0: 'SUMA'})
+#pii['ACUMULADO'] = pii['SUMA'].cumsum() #acumulado de casos por confirmar
+
+
+figx = go.Figure()
+figx.add_trace(go.Scatter(
+    x=fii['FECHA_INGRESO'].values.tolist(),
+    y=fii['ACUMULADO'].values.tolist(), mode='lines+markers', name = 'Casos acumulados positivos'))
+figx.add_trace(go.Scatter(
+    x=nii['FECHA_INGRESO'].values.tolist(),
+    y=nii['ACUMULADO'].values.tolist(), mode='lines+markers', name = 'Casos acumulados negativos'))
+#figx.add_trace(go.Scatter(
+#    x=pii['FECHA_INGRESO'].values.tolist(),
+#    y=pii['ACUMULADO'].values.tolist(), mode='lines+markers', name = 'Casos por confirmar'))
+figx.update_layout(title="Casos acumulados en el estado",xaxis_title="Fecha de ingreso",
+                   yaxis_title="Acumulado", title_x=0.5, margin={"r":350,"t":100,"l":400,"b":50})
+figx.update_xaxes(rangeslider_visible=True)
+#figx.show()
+
 #app = dash.Dash()
+app = dash.Dash(__name__)
+
         
 
+app.layout = html.Div([html.Div(children = [html.H1('Casos acumulados en Yucatán'), dcc.Graph(id='acumulado', figure = figx)]),
+    html.Div(children = [html.H1('Mapa de datos en Yucatán'), dcc.Graph(id='mapa', figure = fig)]),
+    html.Div(children = [html.H1('Casos confirmados por enfermedad y género'), dcc.Graph(id='disease', figure = fig2)])], style = {'background-color': '#2a1a5e', 
+                                                                                                                                   'text-align': 'center', 'color': 'white', 'margin-left': 'auto', 'margin-right':'auto'})
 
-app.layout = html.Div([html.Div(children = [html.H1('Mapa de datos en Yucatán'), dcc.Graph(id='example', figure = fig)]),
-    html.Div(children = [html.H1('Casos confirmados por enfermedad y género'), dcc.Graph(id='disease', figure = fig2)])])
 
 
 # local
