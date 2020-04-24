@@ -8,6 +8,6 @@ The purpose of this project is to be able to visualize the data of the State of 
 
 <p>
   You can see the accumulated cases in the state, both positive and negative.
-  <img href = 'https://github.com/Luisbaduy97/COVID-YUCATAN/blob/master/acumulado.png'>
+  <img src = 'https://github.com/Luisbaduy97/COVID-YUCATAN/blob/master/acumulado.png'>
 </p>
 
