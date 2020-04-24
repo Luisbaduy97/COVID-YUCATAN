@@ -30,7 +30,7 @@ The purpose of this project is to be able to visualize the data of the State of 
   <img src = 'https://github.com/Luisbaduy97/COVID-YUCATAN/blob/master/enfermedades.png'>
 </div>
 
-To extract pandas dataframe from Mérida you just need to run the datos_yuc_actualizado.py file
+To extract pandas dataframe from Mérida you just need to run the datos_yuc_actualizado.py file.
 
 
 This project was made with :heart: by <a href='https://www.linkedin.com/in/luis-navarrete-baduy-53bb30176/'>Luis Navarrete</a>.
