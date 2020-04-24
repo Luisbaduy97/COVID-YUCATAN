@@ -15,7 +15,7 @@ The purpose of this project is to be able to visualize the data of the State of 
 </div>
 
 <p>
-  You can see the accumulated cases in the state, both positive and negative.
+  Similarly, an observation was applied according to the municipalities that report confirmed, suspicious and negative cases..
 </p>
 
 <div align = 'center'>
@@ -23,7 +23,7 @@ The purpose of this project is to be able to visualize the data of the State of 
 </div>
 
 <p>
-  You can see the accumulated cases in the state, both positive and negative.
+  Finally, the confirmed patients with any additional pathology to the coronavirus are displayed on the dashboard, these are divided by gender.
 </p>
 
 <div align = 'center'>
