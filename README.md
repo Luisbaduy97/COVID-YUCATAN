@@ -4,3 +4,18 @@
 </p>
 
 The purpose of this project is to be able to visualize the data of the State of Yucatan, temporarily, geographically, as well as to make a comparison by gender of different pathologies of people with Coronavirus.
+
+
+<p>
+  You can see the accumulated cases in the state, both positive and negative.
+</p>
+
+<img href = 'https://github.com/Luisbaduy97/COVID-YUCATAN/blob/master/acumulado.png'>
+
+<p>
+  
+</p>
+
+<p>
+  
+</p>
