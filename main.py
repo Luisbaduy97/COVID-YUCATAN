@@ -19,6 +19,14 @@ import flask
 
 #app = dash.Dash(__name__, server=server) # call flask server
 
+server = flask.Flask(__name__)
+external = ['https://codepen.io/amyoshino/pen/jzXypZ.css']
+app = dash.Dash(__name__, external_stylesheets = external, server=server)
+
+app.title = 'COVID Yucatán'
+
+
+
 covid = pd.read_csv('http://187.191.75.115/gobmx/salud/datos_abiertos/datos_abiertos_covid19.zip', encoding='ANSI')
 coords = pd.read_csv('coordenadas.csv')
 yuc_coords = coords[coords['Num_Ent'] == 31]
@@ -163,11 +171,6 @@ figx.update_xaxes(rangeslider_visible=True)
 #figx.show()
 
 #app = dash.Dash()
-server = flask.Flask(__name__)
-external = ['https://codepen.io/amyoshino/pen/jzXypZ.css']
-app = dash.Dash(__name__, external_stylesheets = external, server=server)
-
-app.title = 'COVID Yucatán'
 
 # Boostrap CSS.
 #app.css.append_css({'external_url': 'https://codepen.io/amyoshino/pen/jzXypZ.css'})
