@@ -1,3 +1,9 @@
+# -*- coding: utf-8 -*-
+"""
+Created on Wed Apr 22 16:38:10 2020
+
+@author: DELL
+"""
 
 
 import dash
@@ -9,11 +15,11 @@ import plotly.graph_objects as go
 import flask
 #import plotly.graph_objects as go
 
-server = flask.Flask(__name__) # define flask app.server
+#server = flask.Flask(__name__) # define flask app.server
 
-app = dash.Dash(__name__, server=server) # call flask server
+#app = dash.Dash(__name__, server=server) # call flask server
 
-covid = pd.read_csv('http://187.191.75.115/gobmx/salud/datos_abiertos/datos_abiertos_covid19.zip', encoding="ISO-8859-1")
+covid = pd.read_csv('http://187.191.75.115/gobmx/salud/datos_abiertos/datos_abiertos_covid19.zip', encoding='ANSI')
 coords = pd.read_csv('coordenadas.csv')
 yuc_coords = coords[coords['Num_Ent'] == 31]
 
@@ -82,7 +88,7 @@ fig = px.scatter_mapbox(data_f, lat="Latitud", lon="Longitud", hover_name="Munic
                         color_discrete_sequence=["red"], zoom=8, height=500, size='Tamaño', hover_data=["Positivos", "Negativos", "Por confirmar"],
                        center={'lat':lat.get('Mérida'), 'lon':lon.get('Mérida')})
 fig.update_layout(mapbox_style="open-street-map")
-fig.update_layout(margin={"r":100,"t":0,"l":100,"b":0})
+fig.update_layout(margin={"r":200,"t":0,"l":200,"b":100}, template = 'plotly_dark', title = 'Mapa de casos en Yucatán')
 
 sexo_dict = {1:'Mujer', 2:'Hombre', 3:'No especificado'}
 
@@ -101,6 +107,8 @@ epoc = data3[data3['EPOC'] == 1]
 hiper = data3[data3['HIPERTENSION'] == 1]
 ob = data3[data3['OBESIDAD'] == 1]
 car = data3[data3['CARDIOVASCULAR'] == 1]
+asma = data3[data3['ASMA'] == 1]
+inmu = data3[data3['INMUSUPR'] == 1]
 
 fig2 = go.Figure()
 fig2.add_trace(go.Histogram(histfunc="count", y=neumonia['NEUMONIA'], x=neumonia['Gender'], name="NEUMONIA"))
@@ -109,7 +117,9 @@ fig2.add_trace(go.Histogram(histfunc="count", y=epoc['EPOC'], x=epoc['Gender'], 
 fig2.add_trace(go.Histogram(histfunc="count", y=hiper['HIPERTENSION'], x=hiper['Gender'], name="HIPERTENSION"))
 fig2.add_trace(go.Histogram(histfunc="count", y=ob['OBESIDAD'], x=ob['Gender'], name="OBESIDAD"))
 fig2.add_trace(go.Histogram(histfunc="count", y=car['CARDIOVASCULAR'], x=car['Gender'], name="CARDIOVASCULAR"))
-fig2.update_layout(title="Número de casos por enfermedad y sexo",title_x=0.5, margin={"r":350,"t":100,"l":400,"b":50})
+fig2.add_trace(go.Histogram(histfunc="count", y=asma['ASMA'], x=asma['Gender'], name="ASMA"))
+fig2.add_trace(go.Histogram(histfunc="count", y=inmu['INMUSUPR'], x=inmu['Gender'], name="INMUNOSUPR"))
+fig2.update_layout(title="Número de casos por enfermedad y sexo",title_x=0.5, template = 'plotly_dark')
 #fig2.show()
 
 
@@ -148,21 +158,35 @@ figx.add_trace(go.Scatter(
 #    x=pii['FECHA_INGRESO'].values.tolist(),
 #    y=pii['ACUMULADO'].values.tolist(), mode='lines+markers', name = 'Casos por confirmar'))
 figx.update_layout(title="Casos acumulados en el estado",xaxis_title="Fecha de ingreso",
-                   yaxis_title="Acumulado", title_x=0.5, margin={"r":350,"t":100,"l":400,"b":50})
+                   yaxis_title="Acumulado", title_x=0.5, legend_orientation="h", template = 'plotly_dark')
 figx.update_xaxes(rangeslider_visible=True)
 #figx.show()
 
 #app = dash.Dash()
-#app = dash.Dash(__name__)
+server = flask.Flask(__name__)
+external = ['https://codepen.io/amyoshino/pen/jzXypZ.css']
+app = dash.Dash(__name__, external_stylesheets = external, server=server)
+
+app.title = 'COVID Yucatán'
+
+# Boostrap CSS.
+#app.css.append_css({'external_url': 'https://codepen.io/amyoshino/pen/jzXypZ.css'})
 
 
-
-app.layout = html.Div([html.Div(children = [html.H1('Casos acumulados en Yucatán'), dcc.Graph(id='acumulado', figure = figx)]),
-    html.Div(children = [html.H1('Mapa de datos en Yucatán'), dcc.Graph(id='mapa', figure = fig)]),
-    html.Div(children = [html.H1('Casos confirmados por enfermedad y género'), dcc.Graph(id='disease', figure = fig2)])], style = {'background-color': '#2a1a5e',
-                                                                                                                                   'text-align': 'center', 'color': 'white', 'margin-left': 'auto', 'margin-right':'auto'})
-
-
+#app.layout = html.Div([html.Div(children = [html.H1('Casos acumulados en Yucatán'), dcc.Graph(id='acumulado', figure = figx)], className = "six columns"),
+#    html.Div(children = [html.H1('Mapa de datos en Yucatán'), dcc.Graph(id='mapa', figure = fig)]), html.Div(children = [html.H1('Casos confirmados por enfermedad y género'), dcc.Graph(id='disease', figure = fig2)])], style = {'background-color': '#2a1a5e',
+#                                                                                                                                   'text-align': 'center', 'color': 'white', 'margin-left': 'auto', 'margin-right':'auto'})
+app.layout = html.Div([
+    html.Div(children = [html.H1('COVID Yucatán'),
+        html.Div([
+            html.Div([
+                dcc.Graph(id='acumulado', figure = figx)
+            ], className = 'six columns'),
+            html.Div([
+                dcc.Graph(id='d2', figure = fig2)
+                ], className = 'six columns')], className = "row")]),
+                html.Div(children = [html.H1('Casos en el estado'), dcc.Graph(id='mapa', figure = fig)])], style = {'background-color': '#121212', 'text-align': 'center',
+                 'color': 'white'})
 
 # local
 #if __name__ == '__main__':
