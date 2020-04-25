@@ -188,7 +188,7 @@ app.layout = html.Div([
             html.Div([
                 dcc.Graph(id='d2', figure = fig2)
                 ], className = 'six columns')], className = "row")]),
-                html.Div(children = [html.H1('Casos por confirmar por municipio'), dcc.Graph(id='mapa', figure = fig)])], style = {'background-color': '#121212', 'text-align': 'center',
+                html.Div(children = [html.H1('Casos por municipio'), dcc.Graph(id='mapa', figure = fig)])], style = {'background-color': '#121212', 'text-align': 'center',
                  'color': 'white'})
 
 # local
