@@ -127,7 +127,7 @@ fig2.add_trace(go.Histogram(histfunc="count", y=ob['OBESIDAD'], x=ob['Gender'], 
 fig2.add_trace(go.Histogram(histfunc="count", y=car['CARDIOVASCULAR'], x=car['Gender'], name="CARDIOVASCULAR"))
 fig2.add_trace(go.Histogram(histfunc="count", y=asma['ASMA'], x=asma['Gender'], name="ASMA"))
 fig2.add_trace(go.Histogram(histfunc="count", y=inmu['INMUSUPR'], x=inmu['Gender'], name="INMUNOSUPR"))
-fig2.update_layout(title="Número de casos por enfermedad y sexo",title_x=0.5, template = 'plotly_dark')
+fig2.update_layout(title="Casos positivos que presentan otra enfermedad",title_x=0.5, template = 'plotly_dark')
 #fig2.show()
 
 
@@ -188,7 +188,7 @@ app.layout = html.Div([
             html.Div([
                 dcc.Graph(id='d2', figure = fig2)
                 ], className = 'six columns')], className = "row")]),
-                html.Div(children = [html.H1('Casos en el estado'), dcc.Graph(id='mapa', figure = fig)])], style = {'background-color': '#121212', 'text-align': 'center',
+                html.Div(children = [html.H1('Casos por confirmar por municipio'), dcc.Graph(id='mapa', figure = fig)])], style = {'background-color': '#121212', 'text-align': 'center',
                  'color': 'white'})
 
 # local
