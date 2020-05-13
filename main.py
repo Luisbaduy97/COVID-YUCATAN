@@ -178,10 +178,10 @@ fig_m1 = go.Figure()
 fig_m1.add_trace(go.Scatter(x=data_sis['Fecha'], y= tprs_upper, fill = None,mode='lines',line_color='lightskyblue', name = 'Rango máximo'))
 fig_m1.add_trace(go.Scatter(x=data_sis['Fecha'], y= tprs_lower, fill = 'tonexty',mode='lines',line_color='lightskyblue', name = 'Rango mínimo'))
 fig_m1.add_trace(go.Scatter(x=data_sis['Fecha'], y= mean_tpr, fill = None,mode='lines',line_color='blue', name = 'Rango promedio'))
-fig_m1.add_trace(go.Scatter(x = activos['Fecha'], y = activos['Casos Activos'], mode='lines+markers',name = 'Casos activos', line_color = 'red'))
+fig_m1.add_trace(go.Scatter(x = activos['Fecha'], y = activos['Casos Activos'], mode='lines+markers',name = 'Casos activos reales', line_color = 'red'))
 
 fig_m1.update_xaxes(rangeslider_visible=True)
-fig_m1.update_layout(title="Modelo",yaxis_title="Casos activos",title_x=0.43,template = 'plotly_dark')
+fig_m1.update_layout(title="Modelo SIR",yaxis_title="Casos activos",title_x=0.43,template = 'plotly_dark')
 
 ######################################################################
 
