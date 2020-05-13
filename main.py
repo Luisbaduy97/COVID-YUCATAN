@@ -13,6 +13,8 @@ import pandas as pd
 import numpy as np
 import plotly.graph_objects as go
 import flask
+import datetime
+from matplotlib.ticker import MaxNLocator
 #import plotly.graph_objects as go
 
 #server = flask.Flask(__name__) # define flask app.server
@@ -23,7 +25,7 @@ server = flask.Flask(__name__)
 external = ['https://codepen.io/amyoshino/pen/jzXypZ.css']
 app = dash.Dash(__name__, external_stylesheets = external, server=server)
 
-app.title = 'COVID Yucatán'
+app.title = 'COVID-19 Yucatán'
 
 
 
@@ -170,6 +172,48 @@ figx.update_layout(title="Casos acumulados en el estado",xaxis_title="Fecha de i
 figx.update_xaxes(rangeslider_visible=True)
 #figx.show()
 
+
+####################### Agregando los modelo matemáticos #############
+
+data_sis = pd.read_csv('resultadosyuca.csv', header=None)
+date = np.array('2020-03-13', dtype=np.datetime64)
+date_p = date + np.arange(180)
+data_sis['Fecha'] = date_p
+activos = pd.read_excel('activos.xlsx')
+date_a = date + np.arange(activos.shape[0])
+data_sis["Fecha2"] = data_sis['Fecha'].dt.strftime("%Y-%m-%d")
+activos['Fecha'] = date_a
+
+mean_tpr = np.mean(data_sis, axis=1)
+std_tpr = np.std(data_sis, axis=1)
+tprs_upper = mean_tpr + std_tpr
+tprs_lower = mean_tpr - std_tpr
+
+
+
+##activos = activos.iloc[:,1]
+
+fig_m1 = go.Figure()
+fig_m1.add_trace(go.Scatter(x=data_sis['Fecha'], y= tprs_upper, fill = None,mode='lines', 
+                          line_color='lightskyblue', name = 'Rango máximo'))
+fig_m1.add_trace(go.Scatter(x=data_sis['Fecha'], y= tprs_lower, fill = 'tonexty',mode='lines', 
+                          line_color='lightskyblue', name = 'Rango mínimo'))
+fig_m1.add_trace(go.Scatter(x=data_sis['Fecha'], y= mean_tpr, fill = None,mode='lines', 
+                          line_color='blue', name = 'Rango promedio'))
+fig_m1.add_trace(go.Scatter(x = activos['Fecha'], y = activos['Casos Activos'], mode='lines+markers', 
+                          name = 'Casos activos', line_color = 'red'))
+
+fig_m1.update_xaxes(rangeslider_visible=True)
+fig_m1.update_layout(
+    title="Modelo",
+    yaxis_title="Casos activos",title_x=0.43,template = 'plotly_dark')
+
+##fig_m1.show()
+
+
+
+######################################################################
+
 #app = dash.Dash()
 
 # Boostrap CSS.
@@ -178,9 +222,24 @@ figx.update_xaxes(rangeslider_visible=True)
 
 #app.layout = html.Div([html.Div(children = [html.H1('Casos acumulados en Yucatán'), dcc.Graph(id='acumulado', figure = figx)], className = "six columns"),
 #    html.Div(children = [html.H1('Mapa de datos en Yucatán'), dcc.Graph(id='mapa', figure = fig)]), html.Div(children = [html.H1('Casos confirmados por enfermedad y género'), dcc.Graph(id='disease', figure = fig2)])], style = {'background-color': '#2a1a5e',
-#                                                                                                                                   'text-align': 'center', 'color': 'white', 'margin-left': 'auto', 'margin-right':'auto'})
+#
+
+ #                                                                                                                             'text-align': 'center', 'color': 'white', 'margin-left': 'auto', 'margin-right':'auto'})
+# app.layout = html.Div([
+#     html.Div(children = [html.H1('COVID-19 Yucatán'),
+#         html.Div([
+#             html.Div([
+#                 dcc.Graph(id='acumulado', figure = figx)
+#             ], className = 'six columns'),
+#             html.Div([
+#                 dcc.Graph(id='d2', figure = fig2)
+#                 ], className = 'six columns')], className = "row")]),
+#                 html.Div(children = [html.H1('Casos por municipio'), dcc.Graph(id='mapa', figure = fig)])], style = {'background-color': '#121212', 'text-align': 'center',
+#                  'color': 'white'})
+                                                                                                                     
+                                                                                                                  
 app.layout = html.Div([
-    html.Div(children = [html.H1('COVID Yucatán'),
+    html.Div(children = [html.H1('COVID-19 Yucatán'),
         html.Div([
             html.Div([
                 dcc.Graph(id='acumulado', figure = figx)
@@ -188,12 +247,16 @@ app.layout = html.Div([
             html.Div([
                 dcc.Graph(id='d2', figure = fig2)
                 ], className = 'six columns')], className = "row")]),
-                html.Div(children = [html.H1('Casos por municipio'), dcc.Graph(id='mapa', figure = fig)])], style = {'background-color': '#121212', 'text-align': 'center',
-                 'color': 'white'})
-
-# local
+                html.Div(children = [html.H1('Casos por municipio'), dcc.Graph(id='mapa', figure = fig)]),
+            html.Div(children = [html.H1('Modelo matemático'),
+                                 html.P('Como todo modelo matemático lo que se brinda es la estimación que arroja el modelo pero que no es una verdad absoluta, de cualquier manera, pudiera ser una alerta útil de prevención para la población. Investigadores y estudiantes asociados del Instituto de Investigaciones en Matemáticas Aplicadas y en Sistemas (IIMAS), de la Unidad Académica del Campus Yucatán de la Universidad Nacional Autónoma de México (UNAM), continúan trabajando en otros modelos matemáticos más generales que contemplen otras variables y métodos de solución.'), dcc.Graph(id='modelo_sis', figure = fig_m1)])], style = {'background-color': '#121212', 
+                                                                                                                 'text-align': 'center','color': 'white'})
+                                      
+                                                                                                                     
+                                                                                                                     
+## local
 #if __name__ == '__main__':
 #     app.run_server(debug=True)
 
-# gunicorn
+## gunicorn
 app = app.server
