@@ -14,7 +14,7 @@ import numpy as np
 import plotly.graph_objects as go
 import flask
 import datetime
-from matplotlib.ticker import MaxNLocator
+#from matplotlib.ticker import MaxNLocator
 #import plotly.graph_objects as go
 
 #server = flask.Flask(__name__) # define flask app.server
