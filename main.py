@@ -186,6 +186,7 @@ fig_m1.update_layout(title="Modelo SIR",yaxis_title="Casos activos",title_x=0.43
 ######################################################################
 
 app.layout = html.Div([
+    html.Div(children = [html.Img(src = 'https://github.com/Luisbaduy97/COVID-YUCATAN/blob/master/logos_pagina.png?raw=true', style = {'height': '100px'})], style = {'background-color': 'white'}),
     html.Div(children = [html.H1('COVID-19 Yucatán'),html.Div([html.Div([dcc.Graph(id='acumulado', figure = figx)], className = 'six columns'),html.Div([dcc.Graph(id='d2', figure = fig2)], className = 'six columns')], className = "row")]),
     html.Div(children = [html.H1('Casos por municipio'), dcc.Graph(id='mapa', figure = fig)]),
     html.Div(children = [html.H1('Modelos matemáticos'), html.P(mensaje),dcc.Graph(id='m1', figure = fig_m1)])],style = {'background-color': '#121212', 'text-align': 'center','color': 'white'})
@@ -195,3 +196,4 @@ app.layout = html.Div([
 
 ## gunicorn
 app = app.server
+
