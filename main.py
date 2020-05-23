@@ -20,7 +20,7 @@ import flask
 #app = dash.Dash(__name__, server=server) # call flask server
 
 server = flask.Flask(__name__)
-external = ['https://codepen.io/amyoshino/pen/jzXypZ.css', 'https://github.com/Luisbaduy97/COVID-YUCATAN/blob/master/estilo.css']
+external = ['https://codepen.io/amyoshino/pen/jzXypZ.css']
 app = dash.Dash(__name__, external_stylesheets = external, server=server)
 
 app.title = 'COVID-19 Yucatán'
@@ -106,11 +106,11 @@ data_f['Longitud'] = lon_muni
 data_f['Tamaño'] = np.asarray(pos) + 100
 
 
-
+#margin={"r":200,"t":0,"l":200,"b":100} 
 
 fig = px.scatter_mapbox(data_f, lat="Latitud", lon="Longitud", hover_name="Municipio",color_discrete_sequence=["red"], zoom=8, height=500, size='Tamaño', hover_data=["Positivos", "Negativos", "Por confirmar"],center={'lat':lat.get('Mérida'), 'lon':lon.get('Mérida')})
 fig.update_layout(mapbox_style="open-street-map")
-fig.update_layout(margin={"r":200,"t":0,"l":200,"b":100}, template = 'plotly_dark', title = 'Mapa de casos en Yucatán')
+fig.update_layout(template = 'plotly_dark', title = 'Mapa de casos en Yucatán')
 
 sexo_dict = {1:'Mujer', 2:'Hombre', 3:'No especificado'}
 
@@ -194,6 +194,6 @@ app.layout = html.Div([
 #if __name__ == '__main__':
 #     app.run_server(debug=True)
 
-# gunicorn
+## gunicorn
 app = app.server
 
