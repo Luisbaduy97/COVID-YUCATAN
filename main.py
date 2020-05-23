@@ -20,7 +20,7 @@ import flask
 #app = dash.Dash(__name__, server=server) # call flask server
 
 server = flask.Flask(__name__)
-external = ['https://codepen.io/amyoshino/pen/jzXypZ.css']
+external = ['https://codepen.io/amyoshino/pen/jzXypZ.css', 'https://github.com/Luisbaduy97/COVID-YUCATAN/blob/master/estilo.css']
 app = dash.Dash(__name__, external_stylesheets = external, server=server)
 
 app.title = 'COVID-19 Yucatán'
@@ -194,6 +194,6 @@ app.layout = html.Div([
 #if __name__ == '__main__':
 #     app.run_server(debug=True)
 
-## gunicorn
+# gunicorn
 app = app.server
 
