@@ -108,7 +108,7 @@ data_f['Tamaño'] = np.asarray(pos) + 100
 
 #margin={"r":200,"t":0,"l":200,"b":100} 
 
-fig = px.scatter_mapbox(data_f, lat="Latitud", lon="Longitud", hover_name="Municipio",color_discrete_sequence=["red"], zoom=8, height=500, size='Tamaño', hover_data=["Positivos", "Negativos", "Por confirmar"],center={'lat':lat.get('Mérida'), 'lon':lon.get('Mérida')})
+fig = px.scatter_mapbox(data_f, lat="Latitud", lon="Longitud", hover_name="Municipio",color='Positivos', color_continuous_scale=px.colors.diverging.Portland, zoom=8, height=500, size='Tamaño', hover_data=["Positivos", "Negativos", "Por confirmar"],center={'lat':lat.get('Mérida'), 'lon':lon.get('Mérida')})
 fig.update_layout(mapbox_style="open-street-map")
 #fig.update_layout(template = 'plotly_dark', title = 'Mapa de casos en Yucatán')
 fig.update_layout(template = 'plotly_dark')
