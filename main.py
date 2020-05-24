@@ -44,6 +44,22 @@ tprs_lower = mean_tpr - std_tpr
 
 mensaje = 'Como todo modelo matemático lo que se brinda es la estimación que arroja el modelo pero que no es una verdad absoluta, de cualquier manera, pudiera ser una alerta útil de prevención para la población. Investigadores y estudiantes asociados del Instituto de Investigaciones en Matemáticas Aplicadas y en Sistemas (IIMAS), de la Unidad Académica del Campus Yucatán de la Universidad Nacional Autónoma de México (UNAM), continúan trabajando en otros modelos matemáticos más generales que contemplen otras variables y métodos de solución.'
 
+
+#### Modelo Dr Jorge, Dr Julián
+
+data_sir_j = pd.read_csv('modeloSIR.csv')
+date_sir_j = date + np.arange(data_sir_j.shape[0])
+data_sir_j['Fecha'] = date_sir_j
+
+fig_sir_j = go.Figure()
+fig_sir_j.add_trace(go.Scatter(x=data_sir_j['Fecha'], y= data_sir_j['Susceptibles'], mode='lines',line_color='blue', name = 'Susceptibles'))
+fig_sir_j.add_trace(go.Scatter(x=data_sir_j['Fecha'], y= data_sir_j['Infectados'], mode='lines',line_color='orange', name = 'Infectados'))
+fig_sir_j.add_trace(go.Scatter(x=data_sir_j['Fecha'], y= data_sir_j['Recuperados'], mode='lines',line_color='green', name = 'Recuperados'))
+fig_sir_j.add_trace(go.Scatter(x = activos['Fecha'], y = activos['Casos Activos'], mode='lines+markers',name = 'Casos activos reales', line_color = 'red'))
+
+fig_sir_j.update_xaxes(rangeslider_visible=True)
+fig_sir_j.update_layout(title="Modelo SIR",yaxis_title="Casos activos",title_x=0.43,template = 'plotly_dark')
+
 ########################################################################
 
 
@@ -184,13 +200,17 @@ fig_m1.add_trace(go.Scatter(x = activos['Fecha'], y = activos['Casos Activos'], 
 fig_m1.update_xaxes(rangeslider_visible=True)
 fig_m1.update_layout(title="Modelo SIR",yaxis_title="Casos activos",title_x=0.43,template = 'plotly_dark')
 
+
+#Modelo Dr Jorge y Dr. Julian
+
 ######################################################################
 
 app.layout = html.Div([
     html.Div(children = [html.Img(src = 'https://github.com/Luisbaduy97/COVID-YUCATAN/blob/master/logos_pagina.png?raw=true', style = {'height': '100px'})], style = {'background-color': 'white'}),
     html.Div(children = [html.H1('COVID-19 Yucatán'),html.Div([html.Div([dcc.Graph(id='acumulado', figure = figx)], className = 'six columns'),html.Div([dcc.Graph(id='d2', figure = fig2)], className = 'six columns')], className = "row")]),
     html.Div(children = [html.H1('Mapa de casos en Yucatán por municipio'), dcc.Graph(id='mapa', figure = fig)]),
-    html.Div(children = [html.H1('Modelos matemáticos'), html.P(mensaje),dcc.Graph(id='m1', figure = fig_m1)])],style = {'background-color': '#121212', 'text-align': 'center','color': 'white'})
+    html.Div(children = [html.H1('Modelos matemáticos'), html.P(mensaje),dcc.Graph(id='m1', figure = fig_m1)]),
+    html.Div(children = [html.P('write message here'),dcc.Graph(id='sir_j', figure = fig_sir_j)])],style = {'background-color': '#121212', 'text-align': 'center','color': 'white'})
 ## local
 #if __name__ == '__main__':
 #     app.run_server(debug=True)
