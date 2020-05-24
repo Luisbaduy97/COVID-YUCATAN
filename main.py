@@ -60,6 +60,19 @@ fig_sir_j.add_trace(go.Scatter(x = activos['Fecha'], y = activos['Casos Activos'
 fig_sir_j.update_xaxes(rangeslider_visible=True)
 fig_sir_j.update_layout(title="Modelo SIR",yaxis_title="Casos activos",title_x=0.43,template = 'plotly_dark')
 
+### Modelo SIS
+data_sis = pd.read_csv('Modelo_SIS_Resultados.csv',encoding="ISO-8859-1")
+date_sis = date + np.arange(data_sis.shape[0])
+data_sis['Fecha'] = date_sis
+
+fig_sis = go.Figure()
+fig_sis.add_trace(go.Scatter(x=data_sis['Fecha'], y= data_sis['S(t)'], mode='lines',line_color='blue', name = 'Susceptibles'))
+fig_sis.add_trace(go.Scatter(x=data_sis['Fecha'], y= data_sis['I(t)'], mode='lines',line_color='orange', name = 'Infectados'))
+fig_sis.add_trace(go.Scatter(x = activos['Fecha'], y = activos['Casos Confirmados'], mode='lines+markers',name = 'Casos acumulados reales', line_color = 'red'))
+
+fig_sis.update_xaxes(rangeslider_visible=True)
+fig_sis.update_layout(title="Modelo SIS",yaxis_title="Casos acumulados",title_x=0.43,template = 'plotly_dark')
+
 ########################################################################
 
 
@@ -210,7 +223,8 @@ app.layout = html.Div([
     html.Div(children = [html.H1('COVID-19 Yucatán'),html.Div([html.Div([dcc.Graph(id='acumulado', figure = figx)], className = 'six columns'),html.Div([dcc.Graph(id='d2', figure = fig2)], className = 'six columns')], className = "row")]),
     html.Div(children = [html.H1('Mapa de casos en Yucatán por municipio'), dcc.Graph(id='mapa', figure = fig)]),
     html.Div(children = [html.H1('Modelos matemáticos'), html.P(mensaje),dcc.Graph(id='m1', figure = fig_m1)]),
-    html.Div(children = [html.P('write message here'),dcc.Graph(id='sir_j', figure = fig_sir_j)])],style = {'background-color': '#121212', 'text-align': 'center','color': 'white'})
+    html.Div(children = [html.P('write message here'),dcc.Graph(id='sir_j', figure = fig_sir_j)]),
+    html.Div(children = [html.P('write message here'),dcc.Graph(id='sis', figure = fig_sis)])],style = {'background-color': '#121212', 'text-align': 'center','color': 'white'})
 ## local
 #if __name__ == '__main__':
 #     app.run_server(debug=True)
