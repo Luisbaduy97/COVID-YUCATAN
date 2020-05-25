@@ -105,10 +105,11 @@ fig_cajas_acumulado.update_layout(title="Modelo SIR Gompertz casos acumulados",y
 ########################################################################
 
 
-#covid = pd.read_csv('http://187.191.75.115/gobmx/salud/datos_abiertos/datos_abiertos_covid19.zip', encoding="ISO-8859-1") #auto
+covid = pd.read_csv('http://187.191.75.115/gobmx/salud/datos_abiertos/datos_abiertos_covid19.zip', encoding="ISO-8859-1") #auto
 
 
-covid = pd.read_csv('200524COVID19MEXICO.csv', encoding="ISO-8859-1") # manual
+
+#covid = pd.read_csv('200524COVID19MEXICO.csv', encoding="ISO-8859-1") # manual
 
 coords = pd.read_csv('coordenadas.csv')
 yuc_coords = coords[coords['Num_Ent'] == 31]
