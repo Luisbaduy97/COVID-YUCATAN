@@ -81,8 +81,27 @@ mensaje_sis = html.P(['Este es un modelo simple de compartimentos del tipo Susce
 ### Modelo Cajas
 date_c = np.array('2020-01-06', dtype=np.datetime64)
 
+mensaje_gompertz = html.P(['Se construye una aproximación analítica para la evolución de la curva epidémica de covid-19. Partiendo de la observación de que el número de infectados es mucho menor que la población total susceptible, se reduce el modelo susceptible-infectado-recuperado (SIR) y se obtiene una solución analítica de tipo Gompertz proponiendo una forma dependiente del tiempo para el parámetro de crecimiento. Ver resumen ', html.A('aquí.', href = 'https://github.com/Luisbaduy97/COVID-YUCATAN/blob/master/resumenes/ResumenYucatanSIRGpmpertz.pdf', target="_blank")], style = {'margin-left':'20%', 'margin-right':'20%', 'text-align':'justify'})
 
+cajas_activo = pd.read_csv('YUCATAN-predict-activos.csv')
+cajas_activo['Fecha'] = date_c + np.arange(cajas_activo.shape[0])
 
+fig_cajas_activo = go.Figure()
+fig_cajas_activo.add_trace(go.Scatter(x=cajas_activo['Fecha'], y= cajas_activo[' Infectados'], mode='lines',line_color='orange', name = 'Infectados'))
+fig_cajas_activo.add_trace(go.Scatter(x = activos['Fecha'], y = activos['Casos Activos'], mode='lines+markers',name = 'Casos activos reales', line_color = 'red'))
+
+fig_cajas_activo.update_xaxes(rangeslider_visible=True)
+fig_cajas_activo.update_layout(title="Modelo SIR Gompertz casos activos",yaxis_title="Casos activos",title_x=0.43,template = 'plotly_dark')
+
+cajas_acumulado = pd.read_csv('YUCATAN-predict.csv')
+cajas_acumulado['Fecha'] = date_c + np.arange(cajas_acumulado.shape[0])
+
+fig_cajas_acumulado = go.Figure()
+fig_cajas_acumulado.add_trace(go.Scatter(x=cajas_acumulado['Fecha'], y= cajas_acumulado[' Infectados '], mode='lines',line_color='orange', name = 'Infectados'))
+fig_cajas_acumulado.add_trace(go.Scatter(x = activos['Fecha'], y = activos['Casos Confirmados'], mode='lines+markers',name = 'Casos acumulados reales', line_color = 'red'))
+
+fig_cajas_acumulado.update_xaxes(rangeslider_visible=True)
+fig_cajas_acumulado.update_layout(title="Modelo SIR Gompertz casos acumulados",yaxis_title="Casos acumulados",title_x=0.43,template = 'plotly_dark')
 ########################################################################
 
 
@@ -248,7 +267,8 @@ app.layout = html.Div([
     html.Div(children = [html.H2('Mapa de casos en Yucatán por municipio'), dcc.Graph(id='mapa', figure = fig)]),
     html.Div(children = [html.H2('Modelos matemáticos'), html.P(mensaje, style = {'margin-left':'20%', 'margin-right':'20%', 'text-align':'justify'})]),
     html.Div(children = [html.H4('Modelo SIR'), mensaje_sir ,dcc.Graph(id='sir_j', figure = fig_sir_j)]),
-    html.Div(children = [html.H4('Modelo SIS'), mensaje_sis ,dcc.Graph(id='sis', figure = fig_sis)])],style = {'background-color': '#121212', 'text-align': 'center','color': 'white'})
+    html.Div(children = [html.H4('Modelo SIS'), mensaje_sis ,dcc.Graph(id='sis', figure = fig_sis)]),
+    html.Div(children = [html.H4('Modelo SIR Gompertz'), mensaje_gompertz ,dcc.Graph(id='sir_g_ac', figure = fig_cajas_acumulado), dcc.Graph(id='sir_g_act', figure = fig_cajas_activo)])],style = {'background-color': '#121212', 'text-align': 'center','color': 'white'})
 ## local
 #if __name__ == '__main__':
 #     app.run_server(debug=True)
