@@ -75,10 +75,12 @@ fig_sis.add_trace(go.Scatter(x = activos['Fecha'], y = activos['Casos Confirmado
 fig_sis.update_xaxes(rangeslider_visible=True)
 fig_sis.update_layout(title="Modelo SIS",yaxis_title="Casos acumulados",title_x=0.43,template = 'plotly_dark')
 
-mensaje_sis = html.P(['Este es un modelo simple de compartimentos del tipo Susceptibles - Infectados - Susceptibles (SIS), se pretende encontrar la estimación de los parámetros de las tasas de infección y recuperación a partir del registro de datos reales. Ver resumen ', html.A('aquí.', href = 'https://github.com/Luisbaduy97/COVID-YUCATAN/blob/master/resumenes/ResumenYucatanSIS.pdf', target="_blank")], style = {'margin-left':'20%', 'margin-right':'20%', 'text-align':'justify'})
+mensaje_sis = html.P(['Este es un modelo simple de compartimentos del tipo Susceptibles - Infectados - Susceptibles (SIS), se pretende encontrar la estimación de los parámetros de las tasas de infección y recuperación a partir del registro de datos reales. Ver resumen ', html.A('aquí.', href = 'https://github.com/Luisbaduy97/COVID-YUCATAN/blob/master/resumenes/ResumenYucatanSISrv.pdf', target="_blank")], style = {'margin-left':'20%', 'margin-right':'20%', 'text-align':'justify'})
 
 
 ### Modelo Cajas
+date_c = np.array('2020-01-06', dtype=np.datetime64)
+
 
 
 ########################################################################
