@@ -102,6 +102,29 @@ fig_cajas_acumulado.add_trace(go.Scatter(x = activos['Fecha'], y = activos['Caso
 
 fig_cajas_acumulado.update_xaxes(rangeslider_visible=True)
 fig_cajas_acumulado.update_layout(title="Modelo SIR Gompertz casos acumulados",yaxis_title="Casos acumulados",title_x=0.43,template = 'plotly_dark')
+
+#Modelo epi
+modelo_epi = pd.read_csv('modelo_epi.csv')
+modelo_epi['Fecha'] = date + np.arange(modelo_epi.shape[0])
+
+fig_epi = go.Figure()
+fig_epi.add_trace(go.Scatter(x=modelo_epi['Fecha'], y= modelo_epi['MCL'], mode='lines',line_color='orange', name = 'MCL'))
+fig_epi.add_trace(go.Scatter(x=modelo_epi['Fecha'], y= modelo_epi['MCLG'], mode='lines',line_color='green', name = 'MCLG'))
+fig_epi.add_trace(go.Scatter(x=modelo_epi['Fecha'], y= modelo_epi['MCR'], mode='lines',line_color='yellow', name = 'MCR'))
+fig_epi.add_trace(go.Scatter(x=modelo_epi['Fecha'], y= modelo_epi['MCRG'], mode='lines',line_color='blue', name = 'MCRG'))
+fig_epi.add_trace(go.Scatter(x=modelo_epi['Fecha'], y= modelo_epi['MCG'], mode='lines',line_color='pink', name = 'MCG'))
+fig_epi.add_trace(go.Scatter(x=modelo_epi['Fecha'], y= modelo_epi['MCGG'], mode='lines',line_color='gray', name = 'MCGG'))
+fig_epi.add_trace(go.Scatter(x=modelo_epi['Fecha'], y= modelo_epi['CASOS'], mode='lines',line_color='red', name = 'Casos diarios reales'))
+#fig_epi.add_trace(go.Scatter(x = activos['Fecha'], y = activos['Casos Confirmados'], mode='lines+markers',name = 'Casos acumulados reales', line_color = 'red'))
+
+fig_epi.update_xaxes(rangeslider_visible=True)
+fig_epi.update_layout(title="Modelo fenomenológico",yaxis_title="Casos diarios",title_x=0.43,template = 'plotly_dark')
+
+
+mensaje_epi = html.P(['Los Modelos de Crecimiento que se emplean son: el exponencial (MCE), el logístico (MCL), el de Richards (MCR), el de Gompertz (MCG) y sus variantes generalizadas denotadas con MCEG, MCLG, MCRG y MCGG respectivamente, con datos proporcionados por las autoridades del estado de Yucatán hasta el día 17 de mayo de 2020. Ver resumen ', html.A('aquí.', href = 'https://github.com/Luisbaduy97/COVID-YUCATAN/blob/master/resumenes/ResumenYucatanFenomenologicos.pdf', target="_blank")], style = {'margin-left':'20%', 'margin-right':'20%', 'text-align':'justify'})
+
+
+
 ########################################################################
 
 
@@ -269,7 +292,8 @@ app.layout = html.Div([
     html.Div(children = [html.H2('Modelos matemáticos'), html.P(mensaje, style = {'margin-left':'20%', 'margin-right':'20%', 'text-align':'justify'})]),
     html.Div(children = [html.H4('Modelo SIR'), mensaje_sir ,dcc.Graph(id='sir_j', figure = fig_sir_j)]),
     html.Div(children = [html.H4('Modelo SIS'), mensaje_sis ,dcc.Graph(id='sis', figure = fig_sis)]),
-    html.Div(children = [html.H4('Modelo SIR Gompertz'), mensaje_gompertz ,dcc.Graph(id='sir_g_ac', figure = fig_cajas_acumulado), dcc.Graph(id='sir_g_act', figure = fig_cajas_activo)])],style = {'background-color': '#121212', 'text-align': 'center','color': 'white'})
+    html.Div(children = [html.H4('Modelo SIR Gompertz'), mensaje_gompertz ,dcc.Graph(id='sir_g_ac', figure = fig_cajas_acumulado), dcc.Graph(id='sir_g_act', figure = fig_cajas_activo)]),
+    html.Div(children = [html.H4('Modelo Fenomenológico'), mensaje_epi ,dcc.Graph(id='feno', figure = fig_epi)])],style = {'background-color': '#121212', 'text-align': 'center','color': 'white'})
 ## local
 #if __name__ == '__main__':
 #     app.run_server(debug=True)
