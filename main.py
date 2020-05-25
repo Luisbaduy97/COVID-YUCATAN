@@ -73,6 +73,8 @@ fig_sis.add_trace(go.Scatter(x = activos['Fecha'], y = activos['Casos Confirmado
 fig_sis.update_xaxes(rangeslider_visible=True)
 fig_sis.update_layout(title="Modelo SIS",yaxis_title="Casos acumulados",title_x=0.43,template = 'plotly_dark')
 
+mensaje_sis = html.P(['Este es un modelo simple de compartimentos del tipo Susceptibles - Infectados - Susceptibles (SIS), se pretende encontrar la estimación de los parámetros de las tasas de infección y recuperación a partir del registro de datos reales. Ver resumen ', html.A('aquí.', href = 'https://github.com/Luisbaduy97/COVID-YUCATAN/blob/master/resumenes/ResumenYucatanSIS.pdf', target="_blank")])
+
 ########################################################################
 
 
@@ -93,11 +95,18 @@ yucatan = covid[covid['ENTIDAD_RES'] == 31]
 yuc2 = yucatan.groupby(by=['MUNICIPIO_RES'])['RESULTADO'].value_counts()
 
 yuc2 = pd.Series(yuc2.values, index = yuc2.index).reset_index().rename(columns={0: 'SUMA'})
+
+#yuc2['MUNICIPIO_RES'] = yuc2['MUNICIPIO_RES'].replace(999,50) #Los no especificado los pongo en Mérida
+
+yuc2 = yuc2[yuc2['MUNICIPIO_RES'] != 999] #Quito a los no especificados
+
 yuc2['MUNICIPIO'] = [d.get(m) for m in yuc2['MUNICIPIO_RES'].values.tolist()]
 yuc2['RESULTADO2'] = [d2.get(m) for m in yuc2['RESULTADO'].values.tolist()]
 
 
+
 muni = np.unique(yuc2['MUNICIPIO'])
+
 pos = []
 neg = []
 conf = []
@@ -224,7 +233,7 @@ app.layout = html.Div([
     html.Div(children = [html.H1('Mapa de casos en Yucatán por municipio'), dcc.Graph(id='mapa', figure = fig)]),
     html.Div(children = [html.H1('Modelos matemáticos'), html.P(mensaje),dcc.Graph(id='m1', figure = fig_m1)]),
     html.Div(children = [html.P('write message here'),dcc.Graph(id='sir_j', figure = fig_sir_j)]),
-    html.Div(children = [html.P('write message here'),dcc.Graph(id='sis', figure = fig_sis)])],style = {'background-color': '#121212', 'text-align': 'center','color': 'white'})
+    html.Div(children = [html.H2('Modelo SIS'), mensaje_sis ,dcc.Graph(id='sis', figure = fig_sis)])],style = {'background-color': '#121212', 'text-align': 'center','color': 'white'})
 ## local
 #if __name__ == '__main__':
 #     app.run_server(debug=True)
