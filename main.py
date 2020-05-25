@@ -63,13 +63,13 @@ fig_sir_j.update_layout(title="Modelo SIR",yaxis_title="Casos activos",title_x=0
 mensaje_sir = html.P(['El modelo SIR (susceptible-infectado-recuperado), también conocido como el modelo de Kermack y McKendrick por su famoso artículo, es un modelo clásico que, junto al teorema del umbral epidemiológico derivado de este, ha jugado un papel fundamental en desarrollos posteriores en el estudio de la dinámica de transmisión de enfermedades infecciosas. Ver resumen ', html.A('aquí.', href = 'https://github.com/Luisbaduy97/COVID-YUCATAN/blob/master/resumenes/ResumenYucatanSIR.pdf', target="_blank")], style = {'margin-left':'20%', 'margin-right':'20%', 'text-align':'justify'})
 
 ### Modelo SIS
-data_sis = pd.read_csv('Modelo_SIS_Resultados.csv',encoding="ISO-8859-1")
-date_sis = date + np.arange(data_sis.shape[0])
-data_sis['Fecha'] = date_sis
+data_sis_n = pd.read_csv('Modelo_SIS_Resultados.csv',encoding="ISO-8859-1")
+date_sis_n = date + np.arange(data_sis_n.shape[0])
+data_sis_n['Fecha'] = date_sis_n
 
 fig_sis = go.Figure()
-fig_sis.add_trace(go.Scatter(x=data_sis['Fecha'], y= data_sis['S(t)'], mode='lines',line_color='blue', name = 'Susceptibles'))
-fig_sis.add_trace(go.Scatter(x=data_sis['Fecha'], y= data_sis['I(t)'], mode='lines',line_color='orange', name = 'Infectados'))
+fig_sis.add_trace(go.Scatter(x=data_sis_n['Fecha'], y= data_sis_n['S(t)'], mode='lines',line_color='blue', name = 'Susceptibles'))
+fig_sis.add_trace(go.Scatter(x=data_sis_n['Fecha'], y= data_sis_n['I(t)'], mode='lines',line_color='orange', name = 'Infectados'))
 fig_sis.add_trace(go.Scatter(x = activos['Fecha'], y = activos['Casos Confirmados'], mode='lines+markers',name = 'Casos acumulados reales', line_color = 'red'))
 
 fig_sis.update_xaxes(rangeslider_visible=True)
@@ -77,10 +77,18 @@ fig_sis.update_layout(title="Modelo SIS",yaxis_title="Casos acumulados",title_x=
 
 mensaje_sis = html.P(['Este es un modelo simple de compartimentos del tipo Susceptibles - Infectados - Susceptibles (SIS), se pretende encontrar la estimación de los parámetros de las tasas de infección y recuperación a partir del registro de datos reales. Ver resumen ', html.A('aquí.', href = 'https://github.com/Luisbaduy97/COVID-YUCATAN/blob/master/resumenes/ResumenYucatanSIS.pdf', target="_blank")], style = {'margin-left':'20%', 'margin-right':'20%', 'text-align':'justify'})
 
+
+### Modelo Cajas
+
+
 ########################################################################
 
 
-covid = pd.read_csv('http://187.191.75.115/gobmx/salud/datos_abiertos/datos_abiertos_covid19.zip', encoding="ISO-8859-1")
+#covid = pd.read_csv('http://187.191.75.115/gobmx/salud/datos_abiertos/datos_abiertos_covid19.zip', encoding="ISO-8859-1") #auto
+
+
+covid = pd.read_csv('200524COVID19MEXICO.csv', encoding="ISO-8859-1") # manual
+
 coords = pd.read_csv('coordenadas.csv')
 yuc_coords = coords[coords['Num_Ent'] == 31]
 
@@ -156,10 +164,11 @@ fig.update_layout(template = 'plotly_dark')
 sexo_dict = {1:'Mujer', 2:'Hombre', 3:'No especificado'}
 
 cols = ['NEUMONIA', 'DIABETES', 'EPOC', 'INMUSUPR', 'ASMA', 'HIPERTENSION', 'CARDIOVASCULAR', 'OBESIDAD','RENAL_CRONICA', 'OTRA_COM', 'OTRO_CASO', 'SEXO', 'RESULTADO']
-#yucatan[cols]
-yuc3 = yucatan[cols]
+##yucatan[cols]
+#yuc3 = yucatan[cols]
+yuc3 = pd.DataFrame(data=yucatan[cols].values, columns =cols)
 sex = [sexo_dict.get(v) for v in yuc3['SEXO'].values.tolist()]
-yuc3['Gender'] = sex
+yuc3['Gender'] = np.asarray(sex)
 
 
 data3 = yuc3[yuc3['RESULTADO'] == 1]
