@@ -42,7 +42,7 @@ tprs_upper = mean_tpr + std_tpr
 tprs_lower = mean_tpr - std_tpr
 
 
-mensaje = 'Como todo modelo matemático lo que se brinda es la estimación que arroja el modelo pero que no es una verdad absoluta, de cualquier manera, pudiera ser una alerta útil de prevención para la población. Investigadores y estudiantes asociados del Instituto de Investigaciones en Matemáticas Aplicadas y en Sistemas (IIMAS), de la Unidad Académica del Campus Yucatán de la Universidad Nacional Autónoma de México (UNAM), continúan trabajando en otros modelos matemáticos más generales que contemplen otras variables y métodos de solución.'
+mensaje = 'Se trata de un ejercicio académico para estudiar la evolución del COVID-19 en el Estado de Yucatán, México. Para este estudio se ha considerado diferentes modelos epidemiológicos y el registro de datos reales dentro del período del 13 de marzo al 20 de mayo 2020. Como todo modelo matemático lo que se brinda es la estimación que arroja el modelo pero que no es una verdad absoluta, de cualquier manera, pudiera ser una alerta útil de prevención para la población. Investigadores y estudiantes asociados del Instituto de Investigaciones en Matemáticas Aplicadas y en Sistemas (IIMAS), de la Unidad Académica del Campus Yucatán de la Universidad Nacional Autónoma de México (UNAM), continúan trabajando en otros modelos matemáticos más generales que contemplen otras variables y métodos de solución.'
 
 
 #### Modelo Dr Jorge, Dr Julián
@@ -59,6 +59,8 @@ fig_sir_j.add_trace(go.Scatter(x = activos['Fecha'], y = activos['Casos Activos'
 
 fig_sir_j.update_xaxes(rangeslider_visible=True)
 fig_sir_j.update_layout(title="Modelo SIR",yaxis_title="Casos activos",title_x=0.43,template = 'plotly_dark')
+
+mensaje_sir = html.P(['El modelo SIR (susceptible-infectado-recuperado), también conocido como el modelo de Kermack y McKendrick por su famoso artículo, es un modelo clásico que, junto al teorema del umbral epidemiológico derivado de este, ha jugado un papel fundamental en desarrollos posteriores en el estudio de la dinámica de transmisión de enfermedades infecciosas. Ver resumen ', html.A('aquí.', href = 'https://github.com/Luisbaduy97/COVID-YUCATAN/blob/master/resumenes/ResumenYucatanSIR.pdf', target="_blank")], style = {'margin-left':'20%', 'margin-right':'20%', 'text-align':'justify'})
 
 ### Modelo SIS
 data_sis = pd.read_csv('Modelo_SIS_Resultados.csv',encoding="ISO-8859-1")
@@ -227,14 +229,15 @@ fig_m1.update_layout(title="Modelo SIR",yaxis_title="Casos activos",title_x=0.43
 
 ######################################################################
 
+#html.Div(children = [html.H2('Modelos SIR'), html.P(mensaje, style = {'margin-left':'20%', 'margin-right':'20%', 'text-align':'justify'}),dcc.Graph(id='m1', figure = fig_m1)])
+
 app.layout = html.Div([
     html.Div(children = [html.Img(src = 'https://github.com/Luisbaduy97/COVID-YUCATAN/blob/master/logos_pagina.png?raw=true', style = {'height': '100px'})], style = {'background-color': 'white'}),
     html.Div(children = [html.H1('COVID-19 Yucatán'),html.Div([html.Div([dcc.Graph(id='acumulado', figure = figx)], className = 'six columns'),html.Div([dcc.Graph(id='d2', figure = fig2)], className = 'six columns')], className = "row")]),
-    html.Div(children = [html.H1('Mapa de casos en Yucatán por municipio'), dcc.Graph(id='mapa', figure = fig)]),
-    html.Div(children = [html.H1('Modelos matemáticos')]),
-    html.Div(children = [html.H1('Modelos SIR'), html.P(mensaje, style = {'margin-left':'20%', 'margin-right':'20%', 'text-align':'justify'}),dcc.Graph(id='m1', figure = fig_m1)]),
-    html.Div(children = [html.P('write message here'),dcc.Graph(id='sir_j', figure = fig_sir_j)]),
-    html.Div(children = [html.H2('Modelo SIS'), mensaje_sis ,dcc.Graph(id='sis', figure = fig_sis)])],style = {'background-color': '#121212', 'text-align': 'center','color': 'white'})
+    html.Div(children = [html.H2('Mapa de casos en Yucatán por municipio'), dcc.Graph(id='mapa', figure = fig)]),
+    html.Div(children = [html.H2('Modelos matemáticos'), html.P(mensaje, style = {'margin-left':'20%', 'margin-right':'20%', 'text-align':'justify'})]),
+    html.Div(children = [html.H4('Modelo SIR'), mensaje_sir ,dcc.Graph(id='sir_j', figure = fig_sir_j)]),
+    html.Div(children = [html.H4('Modelo SIS'), mensaje_sis ,dcc.Graph(id='sis', figure = fig_sis)])],style = {'background-color': '#121212', 'text-align': 'center','color': 'white'})
 ## local
 #if __name__ == '__main__':
 #     app.run_server(debug=True)
