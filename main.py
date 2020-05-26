@@ -132,7 +132,7 @@ mensaje_epi = html.P(['Los Modelos de Crecimiento que se emplean son: el exponen
 
 
 
-covid = pd.read_csv("https://github.com/Luisbaduy97/COVID-YUCATAN/tree/master/historical_db/200525COVID19MEXICO.csv", encoding="ISO-8859-1") # manual
+covid = pd.read_csv('https://github.com/Luisbaduy97/COVID-YUCATAN/blob/master/historical_db/200525COVID19MEXICO.csv?raw=true', encoding="ISO-8859-1") # manual
 
 coords = pd.read_csv('coordenadas.csv')
 yuc_coords = coords[coords['Num_Ent'] == 31]
