@@ -123,8 +123,21 @@ fig_epi.update_layout(title="Modelo fenomenológico",yaxis_title="Casos diarios"
 
 mensaje_epi = html.P(['Los Modelos de Crecimiento que se emplean son: el exponencial (MCE), el logístico (MCL), el de Richards (MCR), el de Gompertz (MCG) y sus variantes generalizadas denotadas con MCEG, MCLG, MCRG y MCGG respectivamente, con datos proporcionados por las autoridades del estado de Yucatán hasta el día 17 de mayo de 2020. Ver resumen ', html.A('aquí.', href = 'https://github.com/Luisbaduy97/COVID-YUCATAN/blob/master/resumenes/ResumenYucatanFenomenologicos.pdf', target="_blank")], style = {'margin-left':'20%', 'margin-right':'20%', 'text-align':'justify'})
 
+##### Modelo SEIR
+seir = pd.read_csv('modeloSEIR.csv',encoding="ISO-8859-1")
+seir['Fecha'] = date + np.arange(seir.shape[0])
 
+fig_seir = go.Figure()
+fig_seir.add_trace(go.Scatter(x=seir['Fecha'], y= seir['Susceptibles'], mode='lines',line_color='blue', name = 'Susceptibles'))
+fig_seir.add_trace(go.Scatter(x=seir['Fecha'], y= seir['Expuestos'], mode='lines',line_color='yellow', name = 'Expuestos'))
+fig_seir.add_trace(go.Scatter(x=seir['Fecha'], y= seir['Infectados'], mode='lines',line_color='orange', name = 'Infectados'))
+fig_seir.add_trace(go.Scatter(x=seir['Fecha'], y= seir['Recuperados'], mode='lines',line_color='green', name = 'Recuperados'))
+fig_seir.add_trace(go.Scatter(x=seir['Fecha'], y= seir['Infectados acumulados'], mode='lines',line_color='red', name = 'Infectaods acumulados'))
 
+fig_seir.update_xaxes(rangeslider_visible=True)
+fig_seir.update_layout(title="Modelo SEIR",yaxis_title="Número de casos",title_x=0.43,template = 'plotly_dark')
+
+mensaje_seir = html.P(['El modelo SEIR es un modelo compartimental que incorpora a los susceptibles: personas que fueron expuestas y contagiadas a la enfermedad y que están incubando la enfermedad y no son aún contagiosos. Este modelo lo utilizamos para estimar parámetros a partir de la información de la reducción de movilidad que se ha observado en el estado de Yucatán. Ver resumen ', html.A('aquí.', href = 'https://github.com/Luisbaduy97/COVID-YUCATAN/blob/master/resumenes/ResumenYucatanSEIR.pdf', target="_blank")], style = {'margin-left':'20%', 'margin-right':'20%', 'text-align':'justify'})
 ########################################################################
 
 
@@ -293,7 +306,8 @@ app.layout = html.Div([
     html.Div(children = [html.H4('Modelo SIR'), mensaje_sir ,dcc.Graph(id='sir_j', figure = fig_sir_j)]),
     html.Div(children = [html.H4('Modelo SIS'), mensaje_sis ,dcc.Graph(id='sis', figure = fig_sis)]),
     html.Div(children = [html.H4('Modelo SIR Gompertz'), mensaje_gompertz ,dcc.Graph(id='sir_g_ac', figure = fig_cajas_acumulado), dcc.Graph(id='sir_g_act', figure = fig_cajas_activo)]),
-    html.Div(children = [html.H4('Modelo Fenomenológico'), mensaje_epi ,dcc.Graph(id='feno', figure = fig_epi)])],style = {'background-color': '#121212', 'text-align': 'center','color': 'white'})
+    html.Div(children = [html.H4('Modelo Fenomenológico'), mensaje_epi ,dcc.Graph(id='feno', figure = fig_epi)]),
+    html.Div(children = [html.H4('Modelo SEIR'), mensaje_seir ,dcc.Graph(id='seir', figure = fig_seir)])],style = {'background-color': '#121212', 'text-align': 'center','color': 'white'})
 ## local
 #if __name__ == '__main__':
 #     app.run_server(debug=True)
