@@ -299,7 +299,7 @@ fig_m1.update_layout(title="Modelo SIR",yaxis_title="Casos activos",title_x=0.43
 #html.Div(children = [html.H2('Modelos SIR'), html.P(mensaje, style = {'margin-left':'20%', 'margin-right':'20%', 'text-align':'justify'}),dcc.Graph(id='m1', figure = fig_m1)])
 
 app.layout = html.Div([
-    html.Div(children = [html.Img(src = 'https://github.com/Luisbaduy97/COVID-YUCATAN/blob/master/logos_pagina.png?raw=true', style = {'height': '100px'})], style = {'background-color': 'white'}),
+    html.Div(children = [html.Img(src = 'https://github.com/Luisbaduy97/COVID-YUCATAN/blob/master/logos/logos_finales_pagina.png?raw=true', style = {'height': '100px', 'width':'1280px'})], style = {'background-color': 'white'}),
     html.Div(children = [html.H1('COVID-19 Yucatán'),html.Div([html.Div([dcc.Graph(id='acumulado', figure = figx)], className = 'six columns'),html.Div([dcc.Graph(id='d2', figure = fig2)], className = 'six columns')], className = "row")]),
     html.Div(children = [html.H2('Mapa de casos en Yucatán por municipio'), dcc.Graph(id='mapa', figure = fig)]),
     html.Div(children = [html.H2('Modelos matemáticos'), html.P(mensaje, style = {'margin-left':'20%', 'margin-right':'20%', 'text-align':'justify'})]),
