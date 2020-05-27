@@ -145,7 +145,7 @@ mensaje_seir = html.P(['El modelo SEIR es un modelo compartimental que incorpora
 
 
 
-covid = pd.read_csv('https://github.com/Luisbaduy97/COVID-YUCATAN/blob/master/historical_db/200525COVID19MEXICO.csv?raw=true', encoding="ISO-8859-1") # manual
+covid = pd.read_csv('https://github.com/Luisbaduy97/COVID-YUCATAN/blob/master/historical_db/200526COVID19MEXICO.csv?raw=true', encoding="ISO-8859-1") # manual
 
 coords = pd.read_csv('coordenadas.csv')
 yuc_coords = coords[coords['Num_Ent'] == 31]
@@ -212,7 +212,8 @@ data_f['Longitud'] = lon_muni
 data_f['Tamaño'] = np.asarray(pos) + 100
 
 
-#margin={"r":200,"t":0,"l":200,"b":100} 
+##margin={"r":200,"t":0,"l":200,"b":100}
+
 
 fig = px.scatter_mapbox(data_f, lat="Latitud", lon="Longitud", hover_name="Municipio",color='Positivos', color_continuous_scale=px.colors.diverging.Portland, zoom=8, height=500, size='Tamaño', hover_data=["Positivos", "Negativos", "Por confirmar"],center={'lat':lat.get('Mérida'), 'lon':lon.get('Mérida')})
 fig.update_layout(mapbox_style="open-street-map")
