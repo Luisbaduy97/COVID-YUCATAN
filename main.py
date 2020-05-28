@@ -348,7 +348,7 @@ app.layout = html.Div([
     html.Div(children = [html.H4('Modelo SIR Gompertz'), mensaje_gompertz ,dcc.Graph(id='sir_g_ac', figure = fig_cajas_acumulado), dcc.Graph(id='sir_g_act', figure = fig_cajas_activo)]),
     html.Div(children = [html.H4('Modelo Fenomenológico'), mensaje_epi ,dcc.Graph(id='feno', figure = fig_epi)]),
     html.Div(children = [html.H4('Modelo SEIR'), mensaje_seir ,dcc.Graph(id='seir', figure = fig_seir), dcc.Graph(id='seir_S', figure = fig_seir_s)]),
-    html.Div(children = [html.H4('Modelo SIR por diferencias'), mensaje_epi ,dcc.Graph(id='sird', figure = fig_sird)])],style = {'background-color': '#121212', 'text-align': 'center','color': 'white'})
+    html.Div(children = [html.H4('Modelo SIR por diferencias'), mensaje_sird ,dcc.Graph(id='sird', figure = fig_sird)])],style = {'background-color': '#121212', 'text-align': 'center','color': 'white'})
 ## local
 #if __name__ == '__main__':
 #     app.run_server(debug=True)
