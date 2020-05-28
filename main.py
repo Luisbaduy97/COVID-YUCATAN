@@ -180,11 +180,9 @@ mensaje_sird = html.P(['Para este estudio se ha considerado un modelo SIRD simpl
 ########################################################################
 
 
-#covid = pd.read_csv('http://187.191.75.115/gobmx/salud/datos_abiertos/datos_abiertos_covid19.zip', encoding="ISO-8859-1") #auto
+covid = pd.read_csv('http://187.191.75.115/gobmx/salud/datos_abiertos/datos_abiertos_covid19.zip', encoding="ISO-8859-1") #auto
 
-
-
-covid = pd.read_csv('https://github.com/Luisbaduy97/COVID-YUCATAN/blob/master/historical_db/200527COVID19MEXICO.csv?raw=true', encoding="ISO-8859-1") # manual
+#covid = pd.read_csv('https://github.com/Luisbaduy97/COVID-YUCATAN/blob/master/historical_db/200527COVID19MEXICO.csv?raw=true', encoding="ISO-8859-1") # manual
 
 coords = pd.read_csv('coordenadas.csv')
 yuc_coords = coords[coords['Num_Ent'] == 31]
@@ -338,17 +336,21 @@ fig_m1.update_layout(title="Modelo SIR",yaxis_title="Casos activos",title_x=0.43
 
 #html.Div(children = [html.H2('Modelos SIR'), html.P(mensaje, style = {'margin-left':'20%', 'margin-right':'20%', 'text-align':'justify'}),dcc.Graph(id='m1', figure = fig_m1)])
 
+
 app.layout = html.Div([
     html.Div(children = [html.Img(src = 'https://github.com/Luisbaduy97/COVID-YUCATAN/blob/master/logos/logos_finales.png?raw=true', style = {'height': '100px', 'width':'1280px'})], style = {'background-color': 'white'}),
     html.Div(children = [html.H1('COVID-19 Yucatán'),html.Div([html.Div([dcc.Graph(id='acumulado', figure = figx)], className = 'six columns'),html.Div([dcc.Graph(id='d2', figure = fig2)], className = 'six columns')], className = "row")]),
     html.Div(children = [html.H2('Mapa de casos en Yucatán por municipio'), dcc.Graph(id='mapa', figure = fig)]),
     html.Div(children = [html.H2('Modelos matemáticos'), html.P(mensaje, style = {'margin-left':'20%', 'margin-right':'20%', 'text-align':'justify'})]),
-    html.Div(children = [html.H4('Modelo SIR'), mensaje_sir ,dcc.Graph(id='sir_j', figure = fig_sir_j), dcc.Graph(id='sir_j_s', figure = fig_sir_j_s)]),
     html.Div(children = [html.H4('Modelo SIS'), mensaje_sis ,dcc.Graph(id='sis', figure = fig_sis), dcc.Graph(id='sis_s', figure = fig_sis_s)]),
-    html.Div(children = [html.H4('Modelo SIR Gompertz'), mensaje_gompertz ,dcc.Graph(id='sir_g_ac', figure = fig_cajas_acumulado), dcc.Graph(id='sir_g_act', figure = fig_cajas_activo)]),
-    html.Div(children = [html.H4('Modelo Fenomenológico'), mensaje_epi ,dcc.Graph(id='feno', figure = fig_epi)]),
+    html.Div(children = [html.H4('Modelo SIR (estimación numérica)'), mensaje_sir ,dcc.Graph(id='sir_j', figure = fig_sir_j), dcc.Graph(id='sir_j_s', figure = fig_sir_j_s)]),
+    html.Div(children = [html.H4('Modelo SIR (solución analítica de Gompertz)'), mensaje_gompertz ,dcc.Graph(id='sir_g_ac', figure = fig_cajas_acumulado), dcc.Graph(id='sir_g_act', figure = fig_cajas_activo)]),
     html.Div(children = [html.H4('Modelo SEIR'), mensaje_seir ,dcc.Graph(id='seir', figure = fig_seir), dcc.Graph(id='seir_S', figure = fig_seir_s)]),
-    html.Div(children = [html.H4('Modelo SIR por diferencias'), mensaje_sird ,dcc.Graph(id='sird', figure = fig_sird)])],style = {'background-color': '#121212', 'text-align': 'center','color': 'white'})
+    html.Div(children = [html.H4('SIRD (aproximación en diferencias finitas)'), mensaje_sird ,dcc.Graph(id='sird', figure = fig_sird)]),
+    html.Div(children = [html.H4('Modelo Fenomenológico'), mensaje_epi ,dcc.Graph(id='feno', figure = fig_epi)])],style = {'background-color': '#121212', 'text-align': 'center','color': 'white'})
+
+
+
 ## local
 #if __name__ == '__main__':
 #     app.run_server(debug=True)
