@@ -60,10 +60,10 @@ fig_sir_j.add_trace(go.Scatter(x = activos['Fecha'], y = activos['Casos Activos'
 fig_sir_j.update_xaxes(rangeslider_visible=True)
 fig_sir_j.update_layout(title="Modelo SIR",yaxis_title="Casos activos",title_x=0.43,template = 'plotly_dark')
 
-fig_sir_j_s = go.Figure()
-fig_sir_j_s.add_trace(go.Scatter(x=data_sir_j['Fecha'], y= data_sir_j['Susceptibles'], mode='lines',line_color='blue', name = 'Susceptibles'))
-fig_sir_j_s.update_xaxes(rangeslider_visible=True)
-fig_sir_j_s.update_layout(title="Modelo SIR",yaxis_title="Susceptibles",title_x=0.43,template = 'plotly_dark')
+#fig_sir_j_s = go.Figure()
+#fig_sir_j_s.add_trace(go.Scatter(x=data_sir_j['Fecha'], y= data_sir_j['Susceptibles'], mode='lines',line_color='blue', name = 'Susceptibles'))
+#fig_sir_j_s.update_xaxes(rangeslider_visible=True)
+#fig_sir_j_s.update_layout(title="Modelo SIR",yaxis_title="Susceptibles",title_x=0.43,template = 'plotly_dark')
 
 
 mensaje_sir = html.P(['El modelo SIR (susceptible-infectado-recuperado), también conocido como el modelo de Kermack y McKendrick por su famoso artículo, es un modelo clásico que, junto al teorema del umbral epidemiológico derivado de este, ha jugado un papel fundamental en desarrollos posteriores en el estudio de la dinámica de transmisión de enfermedades infecciosas. Ver resumen ', html.A('aquí.', href = 'https://github.com/Luisbaduy97/COVID-YUCATAN/blob/master/resumenes/ResumenYucatanSIR.pdf', target="_blank")], style = {'margin-left':'20%', 'margin-right':'20%', 'text-align':'justify'})
@@ -81,10 +81,10 @@ fig_sis.add_trace(go.Scatter(x = activos['Fecha'], y = activos['Casos Confirmado
 fig_sis.update_xaxes(rangeslider_visible=True)
 fig_sis.update_layout(title="Modelo SIS",yaxis_title="Casos acumulados",title_x=0.43,template = 'plotly_dark')
 
-fig_sis_s = go.Figure()
-fig_sis_s.add_trace(go.Scatter(x=data_sis_n['Fecha'], y= data_sis_n['S(t)'], mode='lines',line_color='blue', name = 'Susceptibles'))
-fig_sis_s.update_xaxes(rangeslider_visible=True)
-fig_sis_s.update_layout(title="Modelo SIS",yaxis_title="Susceptibles",title_x=0.43,template = 'plotly_dark')
+#fig_sis_s = go.Figure()
+#fig_sis_s.add_trace(go.Scatter(x=data_sis_n['Fecha'], y= data_sis_n['S(t)'], mode='lines',line_color='blue', name = 'Susceptibles'))
+#fig_sis_s.update_xaxes(rangeslider_visible=True)
+#fig_sis_s.update_layout(title="Modelo SIS",yaxis_title="Susceptibles",title_x=0.43,template = 'plotly_dark')
 
 
 mensaje_sis = html.P(['Este es un modelo simple de compartimentos del tipo Susceptibles - Infectados - Susceptibles (SIS), se pretende encontrar la estimación de los parámetros de las tasas de infección y recuperación a partir del registro de datos reales. Ver resumen ', html.A('aquí.', href = 'https://github.com/Luisbaduy97/COVID-YUCATAN/blob/master/resumenes/ResumenYucatanSISrv.pdf', target="_blank")], style = {'margin-left':'20%', 'margin-right':'20%', 'text-align':'justify'})
@@ -149,11 +149,11 @@ fig_seir.add_trace(go.Scatter(x=seir['Fecha'], y= seir['Infectados acumulados'],
 fig_seir.update_xaxes(rangeslider_visible=True)
 fig_seir.update_layout(title="Modelo SEIR",yaxis_title="Número de casos",title_x=0.43,template = 'plotly_dark')
 
-#susceptibles
-fig_seir_s = go.Figure()
-fig_seir_s.add_trace(go.Scatter(x=seir['Fecha'], y= seir['Susceptibles'], mode='lines',line_color='blue', name = 'Susceptibles'))
-fig_seir_s.update_xaxes(rangeslider_visible=True)
-fig_seir_s.update_layout(title="Modelo SEIR",yaxis_title="Susceptibles",title_x=0.43,template = 'plotly_dark')
+##susceptibles
+#fig_seir_s = go.Figure()
+#fig_seir_s.add_trace(go.Scatter(x=seir['Fecha'], y= seir['Susceptibles'], mode='lines',line_color='blue', name = 'Susceptibles'))
+#fig_seir_s.update_xaxes(rangeslider_visible=True)
+#fig_seir_s.update_layout(title="Modelo SEIR",yaxis_title="Susceptibles",title_x=0.43,template = 'plotly_dark')
 
 
 mensaje_seir = html.P(['El modelo SEIR es un modelo compartimental que incorpora a los susceptibles: personas que fueron expuestas y contagiadas a la enfermedad y que están incubando la enfermedad y no son aún contagiosos. Este modelo lo utilizamos para estimar parámetros a partir de la información de la reducción de movilidad que se ha observado en el estado de Yucatán. Ver resumen ', html.A('aquí.', href = 'https://github.com/Luisbaduy97/COVID-YUCATAN/blob/master/resumenes/ResumenYucatanSEIR.pdf', target="_blank")], style = {'margin-left':'20%', 'margin-right':'20%', 'text-align':'justify'})
@@ -337,17 +337,32 @@ fig_m1.update_layout(title="Modelo SIR",yaxis_title="Casos activos",title_x=0.43
 #html.Div(children = [html.H2('Modelos SIR'), html.P(mensaje, style = {'margin-left':'20%', 'margin-right':'20%', 'text-align':'justify'}),dcc.Graph(id='m1', figure = fig_m1)])
 
 
+################# Indice #################
+
+index = html.Ol(children = [html.Li(children = [html.A('Información de Yucatán', href = '#casos-yuc')]),
+                            html.Li(children = [html.A('Modelos matemáticos', href = '#mode_m'),
+                            html.Ol(children = [html.Li(html.A('SIS', href='#sis')),
+                                                html.Li(html.A('SIR', href='#sir_n')),
+                                                html.Li(html.A('SIR (I<<S) soluciones tipo Gompertz', href='#sir_g')),
+                                                html.Li(html.A('SEIR', href='#seir')),
+                                                html.Li(html.A('SIRD (simplificado con tasas dependientes del tiempo)', href='#sird')),
+                                                html.Li(html.A('Modelos fenomenológicos', href='#feno'))])]),
+                            html.Li(children = [html.A('Integrantes y colaboradores', href = '#')])], style = {'margin-left':'20%', 'margin-right':'20%', 'text-align':'justify'})
+
+##########################################
+
 app.layout = html.Div([
     html.Div(children = [html.Img(src = 'https://github.com/Luisbaduy97/COVID-YUCATAN/blob/master/logos/logos_finales.png?raw=true', style = {'height': '100px', 'width':'1280px'})], style = {'background-color': 'white'}),
-    html.Div(children = [html.H1('COVID-19 Yucatán'),html.Div([html.Div([dcc.Graph(id='acumulado', figure = figx)], className = 'six columns'),html.Div([dcc.Graph(id='d2', figure = fig2)], className = 'six columns')], className = "row")]),
+    html.Div(children = [index]),
+    html.Div(children = [html.H1('COVID-19 Yucatán', id = 'casos-yuc'),html.Div([html.Div([dcc.Graph(id='acumulado', figure = figx)], className = 'six columns'),html.Div([dcc.Graph(id='d2', figure = fig2)], className = 'six columns')], className = "row")]),
     html.Div(children = [html.H2('Mapa de casos en Yucatán por municipio'), dcc.Graph(id='mapa', figure = fig)]),
-    html.Div(children = [html.H2('Modelos matemáticos'), html.P(mensaje, style = {'margin-left':'20%', 'margin-right':'20%', 'text-align':'justify'})]),
-    html.Div(children = [html.H4('Modelo SIS'), mensaje_sis ,dcc.Graph(id='sis', figure = fig_sis), dcc.Graph(id='sis_s', figure = fig_sis_s)]),
-    html.Div(children = [html.H4('Modelo SIR (estimación numérica)'), mensaje_sir ,dcc.Graph(id='sir_j', figure = fig_sir_j), dcc.Graph(id='sir_j_s', figure = fig_sir_j_s)]),
-    html.Div(children = [html.H4('Modelo SIR (solución analítica de Gompertz)'), mensaje_gompertz ,dcc.Graph(id='sir_g_ac', figure = fig_cajas_acumulado), dcc.Graph(id='sir_g_act', figure = fig_cajas_activo)]),
-    html.Div(children = [html.H4('Modelo SEIR'), mensaje_seir ,dcc.Graph(id='seir', figure = fig_seir), dcc.Graph(id='seir_S', figure = fig_seir_s)]),
-    html.Div(children = [html.H4('SIRD (aproximación en diferencias finitas)'), mensaje_sird ,dcc.Graph(id='sird', figure = fig_sird)]),
-    html.Div(children = [html.H4('Modelo Fenomenológico'), mensaje_epi ,dcc.Graph(id='feno', figure = fig_epi)])],style = {'background-color': '#121212', 'text-align': 'center','color': 'white'})
+    html.Div(children = [html.H2('Modelos matemáticos', id = 'mode_m'), html.P(mensaje, style = {'margin-left':'20%', 'margin-right':'20%', 'text-align':'justify'})]),
+    html.Div(children = [html.H4('Modelo SIS', id = 'sis'), mensaje_sis ,dcc.Graph(id='sis_p', figure = fig_sis)]),
+    html.Div(children = [html.H4('Modelo SIR', id='sir_n'), mensaje_sir ,dcc.Graph(id='sir_j', figure = fig_sir_j)]),
+    html.Div(children = [html.H4('Modelo SIR (I<<S) soluciones tipo Gompertz',id='sir_g'), mensaje_gompertz ,dcc.Graph(id='sir_g_ac', figure = fig_cajas_acumulado), dcc.Graph(id='sir_g_act', figure = fig_cajas_activo)]),
+    html.Div(children = [html.H4('Modelo SEIR',id='seir'), mensaje_seir ,dcc.Graph(id='seir_plot', figure = fig_seir)]),
+    html.Div(children = [html.H4('SIRD (simplificado con tasas dependientes del tiempo)',id='sird'), mensaje_sird ,dcc.Graph(id='sird_p', figure = fig_sird)]),
+    html.Div(children = [html.H4('Modelos Fenomenológicos',id='feno'), mensaje_epi ,dcc.Graph(id='feno_p', figure = fig_epi)])],style = {'background-color': '#121212', 'text-align': 'center','color': 'white'})
 
 
 
