@@ -252,7 +252,7 @@ data_f['Tamaño'] = np.asarray(pos) + 100
 ##margin={"r":200,"t":0,"l":200,"b":100}
 
 
-fig = px.scatter_mapbox(data_f, lat="Latitud", lon="Longitud", hover_name="Municipio",color='Positivos', color_continuous_scale=px.colors.diverging.Portland, zoom=8, height=500, size='Tamaño', hover_data=["Positivos", "Negativos", "Por confirmar"],center={'lat':lat.get('Mérida'), 'lon':lon.get('Mérida')})
+fig = px.scatter_mapbox(data_f, lat="Latitud", lon="Longitud", hover_name="Municipio",color='Positivos', color_continuous_scale=px.colors.diverging.Portland, zoom=7, height=500, size='Tamaño', hover_data=["Positivos", "Negativos", "Por confirmar"],center={'lat':lat.get('Mérida'), 'lon':lon.get('Mérida')})
 fig.update_layout(mapbox_style="open-street-map")
 #fig.update_layout(template = 'plotly_dark', title = 'Mapa de casos en Yucatán')
 fig.update_layout(template = 'plotly_dark')
@@ -351,18 +351,29 @@ index = html.Ol(children = [html.Li(children = [html.A('Información de Yucatán
 
 ##########################################
 
+############### Contenido ###################
+
+intro = html.Div(children = [
+    html.H1('Proyecto COVID-19'),
+    html.P('Es un esfuerzo dirigido a modelar la evolución del COVID-19 en el estado de Yucatán. Este trabajo es un proyecto totalmente académico que presenta resultados de la posible evolución de la pandemia. Utilizamos diferentes modelos matemáticos y datos reales  publicados por las autoridades sanitarias a partir del 13 de marzo de 2020. Este proyecto es sólo informativo y no se busca que estos resultados sean considerados ni reportados como una información confirmada para guiar decisiones clínicas.', style = {'margin-left':'20%', 'margin-right':'20%', 'text-align':'justify'})
+    ])
+
+#############################################
+
+
 app.layout = html.Div([
     html.Div(children = [html.Img(src = 'https://github.com/Luisbaduy97/COVID-YUCATAN/blob/master/logos/logos_finales.png?raw=true', style = {'height': '100px', 'width':'1280px'})], style = {'background-color': 'white'}),
-    html.Div(children = [index]),
-    html.Div(children = [html.H1('COVID-19 Yucatán', id = 'casos-yuc'),html.Div([html.Div([dcc.Graph(id='acumulado', figure = figx)], className = 'six columns'),html.Div([dcc.Graph(id='d2', figure = fig2)], className = 'six columns')], className = "row")]),
-    html.Div(children = [html.H2('Mapa de casos en Yucatán por municipio'), dcc.Graph(id='mapa', figure = fig)]),
+    intro,
+    html.Div(children = [html.H2('Contenido'), html.P('En este sitio encontrarás gráficas interactivas sobre la evolución del COVID-19 en Yucatán. Se presentan diferentes modelos matemáticos y podrás descargar un resumen detallado de ellos.', style = {'margin-left':'20%', 'margin-right':'20%', 'text-align':'justify'}),index]),
+    html.Div(children = [html.H2('COVID-19 Yucatán', id = 'casos-yuc'),html.Div([html.Div([dcc.Graph(id='acumulado', figure = figx)], className = 'six columns'),html.Div([dcc.Graph(id='d2', figure = fig2)], className = 'six columns')], className = "row")]),
+    html.Div(children = [html.H3('Mapa de casos en Yucatán por municipio'), dcc.Graph(id='mapa', figure = fig)]),
     html.Div(children = [html.H2('Modelos matemáticos', id = 'mode_m'), html.P(mensaje, style = {'margin-left':'20%', 'margin-right':'20%', 'text-align':'justify'})]),
-    html.Div(children = [html.H4('Modelo SIS', id = 'sis'), mensaje_sis ,dcc.Graph(id='sis_p', figure = fig_sis)]),
-    html.Div(children = [html.H4('Modelo SIR', id='sir_n'), mensaje_sir ,dcc.Graph(id='sir_j', figure = fig_sir_j)]),
-    html.Div(children = [html.H4('Modelo SIR (I<<S) soluciones tipo Gompertz',id='sir_g'), mensaje_gompertz ,dcc.Graph(id='sir_g_ac', figure = fig_cajas_acumulado), dcc.Graph(id='sir_g_act', figure = fig_cajas_activo)]),
-    html.Div(children = [html.H4('Modelo SEIR',id='seir'), mensaje_seir ,dcc.Graph(id='seir_plot', figure = fig_seir)]),
-    html.Div(children = [html.H4('SIRD (simplificado con tasas dependientes del tiempo)',id='sird'), mensaje_sird ,dcc.Graph(id='sird_p', figure = fig_sird)]),
-    html.Div(children = [html.H4('Modelos Fenomenológicos',id='feno'), mensaje_epi ,dcc.Graph(id='feno_p', figure = fig_epi)])],style = {'background-color': '#121212', 'text-align': 'center','color': 'white'})
+    html.Div(children = [html.H3('Modelo SIS', id = 'sis'), mensaje_sis ,dcc.Graph(id='sis_p', figure = fig_sis)]),
+    html.Div(children = [html.H3('Modelo SIR', id='sir_n'), mensaje_sir ,dcc.Graph(id='sir_j', figure = fig_sir_j)]),
+    html.Div(children = [html.H3('Modelo SIR (I<<S) soluciones tipo Gompertz',id='sir_g'), mensaje_gompertz ,dcc.Graph(id='sir_g_ac', figure = fig_cajas_acumulado), dcc.Graph(id='sir_g_act', figure = fig_cajas_activo)]),
+    html.Div(children = [html.H3('Modelo SEIR',id='seir'), mensaje_seir ,dcc.Graph(id='seir_plot', figure = fig_seir)]),
+    html.Div(children = [html.H3('SIRD (simplificado con tasas dependientes del tiempo)',id='sird'), mensaje_sird ,dcc.Graph(id='sird_p', figure = fig_sird)]),
+    html.Div(children = [html.H3('Modelos Fenomenológicos',id='feno'), mensaje_epi ,dcc.Graph(id='feno_p', figure = fig_epi)])],style = {'background-color': '#121212', 'text-align': 'center','color': 'white'})
 
 
 
