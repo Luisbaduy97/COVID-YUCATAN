@@ -356,14 +356,13 @@ index = html.Ol(children = [html.Li(children = [html.A('Información de Yucatán
 table = html.Div(children = [html.Table(children = [
     html.Tr(children = [
         html.Td(html.Img(src = 'https://github.com/Luisbaduy97/COVID-YUCATAN/blob/master/logos/unam.png?raw=true', style = {'width':'100px'})),
-        html.Td(html.H1('Proyecto COVID-19'))])
+        html.Td(html.H1('Proyecto COVID-19'), style = {'color' : 'black'})])
     ], style = {'margin-left': 'auto', 'margin-right': 'auto'})], style = {'background-color':'white'})
 
 
 ############### Contenido ###################
 
 intro = html.Div(children = [
-    html.H1('Proyecto COVID-19'),
     html.P('Es un esfuerzo dirigido a modelar la evolución del COVID-19 en el estado de Yucatán. Este trabajo es un proyecto totalmente académico que presenta resultados de la posible evolución de la pandemia. Utilizamos diferentes modelos matemáticos y datos reales  publicados por las autoridades sanitarias a partir del 13 de marzo de 2020. Este proyecto es sólo informativo y no se busca que estos resultados sean considerados ni reportados como una información confirmada para guiar decisiones clínicas.', style = {'margin-left':'20%', 'margin-right':'20%', 'text-align':'justify'})
     ])
 
@@ -388,7 +387,7 @@ app.layout = html.Div([
 
 ## local
 #if __name__ == '__main__':
-#     app.run_server(debug=True)
+     app.run_server(debug=True)
 
 
 ## gunicorn
