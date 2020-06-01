@@ -351,6 +351,15 @@ index = html.Ol(children = [html.Li(children = [html.A('Información de Yucatán
 
 ##########################################
 
+########### Titulo
+
+table = html.Div(children = [html.Table(children = [
+    html.Tr(children = [
+        html.Td(html.Img(src = 'https://github.com/Luisbaduy97/COVID-YUCATAN/blob/master/logos/unam.png?raw=true', style = {'width':'100px'})),
+        html.Td(html.H1('Proyecto COVID-19'))])
+    ], style = {'margin-left': 'auto', 'margin-right': 'auto'})], style = {'background-color':'white'})
+
+
 ############### Contenido ###################
 
 intro = html.Div(children = [
@@ -359,10 +368,10 @@ intro = html.Div(children = [
     ])
 
 #############################################
-
+#html.Div(children = [html.Img(src = 'https://github.com/Luisbaduy97/COVID-YUCATAN/blob/master/logos/logos_finales.png?raw=true', style = {'height': '100px', 'width':'1280px'})], style = {'background-color': 'white'})
 
 app.layout = html.Div([
-    html.Div(children = [html.Img(src = 'https://github.com/Luisbaduy97/COVID-YUCATAN/blob/master/logos/logos_finales.png?raw=true', style = {'height': '100px', 'width':'1280px'})], style = {'background-color': 'white'}),
+    table,
     intro,
     html.Div(children = [html.H2('Contenido'), html.P('En este sitio encontrarás gráficas interactivas sobre la evolución del COVID-19 en Yucatán. Se presentan diferentes modelos matemáticos y podrás descargar un resumen detallado de ellos.', style = {'margin-left':'20%', 'margin-right':'20%', 'text-align':'justify'}),index]),
     html.Div(children = [html.H2('COVID-19 Yucatán', id = 'casos-yuc'),html.Div([html.Div([dcc.Graph(id='acumulado', figure = figx)], className = 'six columns'),html.Div([dcc.Graph(id='d2', figure = fig2)], className = 'six columns')], className = "row")]),
