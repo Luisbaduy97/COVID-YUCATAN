@@ -347,7 +347,7 @@ index = html.Ol(children = [html.Li(children = [html.A('Información de Yucatán
                                                 html.Li(html.A('SEIR', href='#seir')),
                                                 html.Li(html.A('SIRD (simplificado con tasas dependientes del tiempo)', href='#sird')),
                                                 html.Li(html.A('Modelos fenomenológicos', href='#feno'))])]),
-                            html.Li(children = [html.A('Integrantes y colaboradores', href = '#')])], style = {'margin-left':'20%', 'margin-right':'20%', 'text-align':'justify'})
+                            html.Li(children = [html.A('Integrantes y colaboradores', href = '#colab')])], style = {'margin-left':'20%', 'margin-right':'20%', 'text-align':'justify'})
 
 ##########################################
 
@@ -366,6 +366,14 @@ intro = html.Div(children = [
     html.P('Es un esfuerzo dirigido a modelar la evolución del COVID-19 en el estado de Yucatán. Este trabajo es un proyecto totalmente académico que presenta resultados de la posible evolución de la pandemia. Utilizamos diferentes modelos matemáticos y datos reales  publicados por las autoridades sanitarias a partir del 13 de marzo de 2020. Este proyecto es sólo informativo y no se busca que estos resultados sean considerados ni reportados como una información confirmada para guiar decisiones clínicas.', style = {'margin-left':'20%', 'margin-right':'20%', 'text-align':'justify'})
     ])
 
+
+########### Colaboradores ###################
+
+colab = html.Div(children = [html.H2('Integrantes y colaboradores', id='colab'),
+                             html.Img(src = 'https://github.com/Luisbaduy97/COVID-YUCATAN/blob/master/logos/Grupo_colaboradores2.png?raw=true')],
+                 style = {'margin-left': 'auto', 'margin-right': 'auto'})
+
+
 #############################################
 #html.Div(children = [html.Img(src = 'https://github.com/Luisbaduy97/COVID-YUCATAN/blob/master/logos/logos_finales.png?raw=true', style = {'height': '100px', 'width':'1280px'})], style = {'background-color': 'white'})
 
@@ -381,7 +389,8 @@ app.layout = html.Div([
     html.Div(children = [html.H3('Modelo SIR (I<<S) soluciones tipo Gompertz',id='sir_g'), mensaje_gompertz ,dcc.Graph(id='sir_g_ac', figure = fig_cajas_acumulado), dcc.Graph(id='sir_g_act', figure = fig_cajas_activo)]),
     html.Div(children = [html.H3('Modelo SEIR',id='seir'), mensaje_seir ,dcc.Graph(id='seir_plot', figure = fig_seir)]),
     html.Div(children = [html.H3('SIRD (simplificado con tasas dependientes del tiempo)',id='sird'), mensaje_sird ,dcc.Graph(id='sird_p', figure = fig_sird)]),
-    html.Div(children = [html.H3('Modelos Fenomenológicos',id='feno'), mensaje_epi ,dcc.Graph(id='feno_p', figure = fig_epi)])],style = {'background-color': '#121212', 'text-align': 'center','color': 'white'})
+    html.Div(children = [html.H3('Modelos Fenomenológicos',id='feno'), mensaje_epi ,dcc.Graph(id='feno_p', figure = fig_epi)]),
+    colab],style = {'background-color': '#121212', 'text-align': 'center','color': 'white'})
 
 
 
