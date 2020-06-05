@@ -400,5 +400,5 @@ app.layout = html.Div([
 
 
 ## gunicorn
- = app.server
+app = app.server
 
