@@ -54,7 +54,7 @@ data_sir_j['Fecha'] = date_sir_j
 fig_sir_j = go.Figure()
 #fig_sir_j.add_trace(go.Scatter(x=data_sir_j['Fecha'], y= data_sir_j['Susceptibles'], mode='lines',line_color='blue', name = 'Susceptibles'))
 fig_sir_j.add_trace(go.Scatter(x=data_sir_j['Fecha'], y= data_sir_j['Infectados'], mode='lines',line_color='orange', name = 'Infectados'))
-fig_sir_j.add_trace(go.Scatter(x=data_sir_j['Fecha'], y= data_sir_j['Recuperados'], mode='lines',line_color='green', name = 'Recuperados'))
+#fig_sir_j.add_trace(go.Scatter(x=data_sir_j['Fecha'], y= data_sir_j['Recuperados'], mode='lines',line_color='green', name = 'Recuperados'))
 fig_sir_j.add_trace(go.Scatter(x = activos['Fecha'], y = activos['Casos Activos'], mode='lines+markers',name = 'Casos activos reales', line_color = 'red'))
 
 fig_sir_j.update_xaxes(rangeslider_visible=True)
