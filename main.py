@@ -166,7 +166,7 @@ fig_seir = go.Figure()
 fig_seir.add_trace(go.Scatter(x=seir['Fecha'], y= seir['Expuestos'], mode='lines',line_color='yellow', name = 'Expuestos'))
 fig_seir.add_trace(go.Scatter(x=seir['Fecha'], y= seir['Infectados'], mode='lines',line_color='orange', name = 'Infectados'))
 fig_seir.add_trace(go.Scatter(x=seir['Fecha'], y= seir['Recuperados'], mode='lines',line_color='green', name = 'Recuperados'))
-fig_seir.add_trace(go.Scatter(x=seir['Fecha'], y= seir['Infectados acumulados'], mode='lines',line_color='red', name = 'Infectaods acumulados'))
+fig_seir.add_trace(go.Scatter(x=seir['Fecha'], y= seir['Infectados acumulados'], mode='lines',line_color='red', name = 'Infectados acumulados'))
 
 fig_seir.update_xaxes(rangeslider_visible=True)
 fig_seir.update_layout(title="Modelo SEIR",yaxis_title="Número de casos",title_x=0.43,template = 'plotly_dark')
