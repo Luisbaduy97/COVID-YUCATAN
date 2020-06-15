@@ -119,7 +119,7 @@ fig_cajas_acumulado.update_xaxes(rangeslider_visible=True)
 fig_cajas_acumulado.update_layout(title="Modelo SIR Gompertz casos acumulados",yaxis_title="Casos acumulados",title_x=0.43,template = 'plotly_dark')
 
 #Modelo feno diarios
-modelo_epi = pd.read_csv('model_data/feno_diarios.csv')
+modelo_epi = pd.read_csv('model_data/feno_acumulados.csv')
 modelo_epi['Fecha'] = date + np.arange(modelo_epi.shape[0])
 
 fig_epi = go.Figure()
