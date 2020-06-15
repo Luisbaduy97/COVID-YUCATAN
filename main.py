@@ -375,6 +375,8 @@ index = html.Ol(children = [html.Li(children = [html.A('Información de Yucatán
                             html.Li(children = [html.A('Integrantes y colaboradores', href = '#colab')])], style = {'margin-left':'20%', 'margin-right':'20%', 'text-align':'justify'})
 
 ##########################################
+### Contacto
+contacto = html.Div(children = [html.P("Contacto: covid-yucatan@iimas.unam.mx")], style = {'margin-left':'20%', 'margin-right':'20%', 'text-align':'justify'})
 
 ########### Titulo
 
@@ -405,7 +407,7 @@ colab = html.Div(children = [html.H2('Integrantes y colaboradores', id='colab'),
 app.layout = html.Div([
     table,
     intro,
-    html.Div(children = [html.H2('Contenido'), html.P('En este sitio encontrarás gráficas interactivas sobre la evolución del COVID-19 en Yucatán. Se presentan diferentes modelos matemáticos y podrás descargar un resumen detallado de ellos.', style = {'margin-left':'20%', 'margin-right':'20%', 'text-align':'justify'}),index]),
+    html.Div(children = [html.H2('Contenido'), html.P('En este sitio encontrarás gráficas interactivas sobre la evolución del COVID-19 en Yucatán. Se presentan diferentes modelos matemáticos y podrás descargar un resumen detallado de ellos.', style = {'margin-left':'20%', 'margin-right':'20%', 'text-align':'justify'}),index, contacto]),
     html.Div(children = [html.H2('COVID-19 Yucatán', id = 'casos-yuc'),html.Div([html.Div([dcc.Graph(id='acumulado', figure = figx)], className = 'six columns'),html.Div([dcc.Graph(id='d2', figure = fig2)], className = 'six columns')], className = "row")]),
     html.Div(children = [html.H3('Mapa de casos en Yucatán por municipio'), dcc.Graph(id='mapa', figure = fig)]),
     html.Div(children = [html.H2('Modelos matemáticos', id = 'mode_m'), html.P(mensaje, style = {'margin-left':'20%', 'margin-right':'20%', 'text-align':'justify'})]),
