@@ -47,7 +47,7 @@ mensaje = 'Se trata de un ejercicio académico para estudiar la evolución del C
 
 #### Modelo Dr Jorge, Dr Julián
 
-data_sir_j = pd.read_csv('modeloSIR.csv')
+data_sir_j = pd.read_csv('model_data/modeloSIR.csv')
 date_sir_j = date + np.arange(data_sir_j.shape[0])
 data_sir_j['Fecha'] = date_sir_j
 
@@ -69,17 +69,20 @@ fig_sir_j.update_layout(title="Modelo SIR",yaxis_title="Casos activos",title_x=0
 mensaje_sir = html.P(['El modelo SIR (susceptible-infectado-recuperado), también conocido como el modelo de Kermack y McKendrick por su famoso artículo, es un modelo clásico que, junto al teorema del umbral epidemiológico derivado de este, ha jugado un papel fundamental en desarrollos posteriores en el estudio de la dinámica de transmisión de enfermedades infecciosas. Ver resumen ', html.A('aquí.', href = 'https://github.com/Luisbaduy97/COVID-YUCATAN/blob/master/resumenes/ResumenYucatanSIR.pdf', target="_blank")], style = {'margin-left':'20%', 'margin-right':'20%', 'text-align':'justify'})
 
 ### Modelo SIS
-data_sis_n = pd.read_csv('Modelo_SIS_Resultados.csv',encoding="ISO-8859-1")
+data_sis_n = pd.read_csv('model_data/modelo_SIS.csv')
 date_sis_n = date + np.arange(data_sis_n.shape[0])
 data_sis_n['Fecha'] = date_sis_n
 
 fig_sis = go.Figure()
 #fig_sis.add_trace(go.Scatter(x=data_sis_n['Fecha'], y= data_sis_n['S(t)'], mode='lines',line_color='blue', name = 'Susceptibles'))
-fig_sis.add_trace(go.Scatter(x=data_sis_n['Fecha'], y= data_sis_n['I(t)'], mode='lines',line_color='orange', name = 'Infectados'))
+fig_sis.add_trace(go.Scatter(x=data_sis_n['Fecha'], y= data_sis_n['acumulados'], mode='lines',line_color='orange', name = 'Infectados acumulados'))
 fig_sis.add_trace(go.Scatter(x = activos['Fecha'], y = activos['Casos Confirmados'], mode='lines+markers',name = 'Casos acumulados reales', line_color = 'red'))
 
+fig_sis.add_trace(go.Scatter(x=data_sis_n['Fecha'], y= data_sis_n['activos'], mode='lines',name = 'Infectados activos'))
+fig_sis.add_trace(go.Scatter(x = activos['Fecha'], y = activos['Casos Activos'], mode='lines+markers',name = 'Casos activos reales', line_color = 'yellow'))
+
 fig_sis.update_xaxes(rangeslider_visible=True)
-fig_sis.update_layout(title="Modelo SIS",yaxis_title="Casos acumulados",title_x=0.43,template = 'plotly_dark')
+fig_sis.update_layout(title="Modelo SIS",yaxis_title="Casos",title_x=0.43,template = 'plotly_dark')
 
 #fig_sis_s = go.Figure()
 #fig_sis_s.add_trace(go.Scatter(x=data_sis_n['Fecha'], y= data_sis_n['S(t)'], mode='lines',line_color='blue', name = 'Susceptibles'))
@@ -95,7 +98,7 @@ date_c = np.array('2020-01-06', dtype=np.datetime64)
 
 mensaje_gompertz = html.P(['Se construye una aproximación analítica para la evolución de la curva epidémica de covid-19. Partiendo de la observación de que el número de infectados es mucho menor que la población total susceptible, se reduce el modelo susceptible-infectado-recuperado (SIR) y se obtiene una solución analítica de tipo Gompertz proponiendo una forma dependiente del tiempo para el parámetro de crecimiento. Ver resumen ', html.A('aquí.', href = 'https://github.com/Luisbaduy97/COVID-YUCATAN/blob/master/resumenes/ResumenYucatanSIRGpmpertz.pdf', target="_blank")], style = {'margin-left':'20%', 'margin-right':'20%', 'text-align':'justify'})
 
-cajas_activo = pd.read_csv('YUCATAN-predict-activos.csv')
+cajas_activo = pd.read_csv('model_data/YUCATAN-predict-activos.csv')
 cajas_activo['Fecha'] = date_c + np.arange(cajas_activo.shape[0])
 
 fig_cajas_activo = go.Figure()
@@ -105,7 +108,7 @@ fig_cajas_activo.add_trace(go.Scatter(x = activos['Fecha'], y = activos['Casos A
 fig_cajas_activo.update_xaxes(rangeslider_visible=True)
 fig_cajas_activo.update_layout(title="Modelo SIR Gompertz casos activos",yaxis_title="Casos activos",title_x=0.43,template = 'plotly_dark')
 
-cajas_acumulado = pd.read_csv('YUCATAN-predict.csv')
+cajas_acumulado = pd.read_csv('model_data/YUCATAN-predict.csv')
 cajas_acumulado['Fecha'] = date_c + np.arange(cajas_acumulado.shape[0])
 
 fig_cajas_acumulado = go.Figure()
@@ -116,7 +119,7 @@ fig_cajas_acumulado.update_xaxes(rangeslider_visible=True)
 fig_cajas_acumulado.update_layout(title="Modelo SIR Gompertz casos acumulados",yaxis_title="Casos acumulados",title_x=0.43,template = 'plotly_dark')
 
 #Modelo epi
-modelo_epi = pd.read_csv('modelo_epi.csv')
+modelo_epi = pd.read_csv('model_data/modelo_epi.csv')
 modelo_epi['Fecha'] = date + np.arange(modelo_epi.shape[0])
 
 fig_epi = go.Figure()
@@ -136,7 +139,7 @@ fig_epi.update_layout(title="Modelo fenomenológico",yaxis_title="Casos diarios"
 mensaje_epi = html.P(['Los Modelos de Crecimiento que se emplean son: el exponencial (MCE), el logístico (MCL), el de Richards (MCR), el de Gompertz (MCG) y sus variantes generalizadas denotadas con MCEG, MCLG, MCRG y MCGG respectivamente, con datos proporcionados por las autoridades del estado de Yucatán hasta el día 17 de mayo de 2020. Ver resumen ', html.A('aquí.', href = 'https://github.com/Luisbaduy97/COVID-YUCATAN/blob/master/resumenes/ResumenYucatanFenomenologicos.pdf', target="_blank")], style = {'margin-left':'20%', 'margin-right':'20%', 'text-align':'justify'})
 
 ##### Modelo SEIR
-seir = pd.read_csv('modeloSEIR.csv',encoding="ISO-8859-1")
+seir = pd.read_csv('model_data/modeloSEIR.csv',encoding="ISO-8859-1")
 seir['Fecha'] = date + np.arange(seir.shape[0])
 
 fig_seir = go.Figure()
@@ -161,7 +164,7 @@ mensaje_seir = html.P(['El modelo SEIR es un modelo compartimental que incorpora
 
 #Modelo SIRD
 
-sird = pd.read_csv('ecuaciones en diferencias.csv')
+sird = pd.read_csv('model_data/ecuaciones en diferencias.csv')
 sird['Fecha'] = date + np.arange(sird.shape[0])
 
 fig_sird = go.Figure()
