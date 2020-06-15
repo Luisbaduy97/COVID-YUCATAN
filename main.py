@@ -42,7 +42,7 @@ tprs_upper = mean_tpr + std_tpr
 tprs_lower = mean_tpr - std_tpr
 
 
-mensaje = 'Se trata de un ejercicio académico para estudiar la evolución del COVID-19 en el Estado de Yucatán, México. Para este estudio se ha considerado diferentes modelos epidemiológicos y el registro de datos reales dentro del período del 13 de marzo al 20 de mayo 2020. Como todo modelo matemático lo que se brinda es la estimación que arroja el modelo pero que no es una verdad absoluta, de cualquier manera, pudiera ser una alerta útil de prevención para la población. Investigadores y estudiantes asociados del Instituto de Investigaciones en Matemáticas Aplicadas y en Sistemas (IIMAS), de la Unidad Académica del Campus Yucatán de la Universidad Nacional Autónoma de México (UNAM), continúan trabajando en otros modelos matemáticos más generales que contemplen otras variables y métodos de solución.'
+mensaje = 'Se trata de un ejercicio académico para estudiar la evolución del COVID-19 en el Estado de Yucatán, México. Para este estudio se ha considerado diferentes modelos epidemiológicos y el registro de datos reales a partir del 13 de marzo. Como todo modelo matemático lo que se brinda es la estimación que arroja el modelo pero que no es una verdad absoluta, de cualquier manera, pudiera ser una alerta útil de prevención para la población. Investigadores y estudiantes asociados continúan trabajando en otros modelos matemáticos más generales que contemplen otras variables y métodos de solución.'
 
 
 #### Modelo Dr Jorge, Dr Julián
@@ -118,8 +118,8 @@ fig_cajas_acumulado.add_trace(go.Scatter(x = activos['Fecha'], y = activos['Caso
 fig_cajas_acumulado.update_xaxes(rangeslider_visible=True)
 fig_cajas_acumulado.update_layout(title="Modelo SIR Gompertz casos acumulados",yaxis_title="Casos acumulados",title_x=0.43,template = 'plotly_dark')
 
-#Modelo epi
-modelo_epi = pd.read_csv('model_data/modelo_epi.csv')
+#Modelo feno diarios
+modelo_epi = pd.read_csv('model_data/feno_diarios.csv')
 modelo_epi['Fecha'] = date + np.arange(modelo_epi.shape[0])
 
 fig_epi = go.Figure()
@@ -129,12 +129,31 @@ fig_epi.add_trace(go.Scatter(x=modelo_epi['Fecha'], y= modelo_epi['MCR'], mode='
 fig_epi.add_trace(go.Scatter(x=modelo_epi['Fecha'], y= modelo_epi['MCRG'], mode='lines',line_color='blue', name = 'MCRG'))
 fig_epi.add_trace(go.Scatter(x=modelo_epi['Fecha'], y= modelo_epi['MCG'], mode='lines',line_color='pink', name = 'MCG'))
 fig_epi.add_trace(go.Scatter(x=modelo_epi['Fecha'], y= modelo_epi['MCGG'], mode='lines',line_color='gray', name = 'MCGG'))
-fig_epi.add_trace(go.Scatter(x=modelo_epi['Fecha'], y= modelo_epi['CASOS'], mode='lines',line_color='red', name = 'Casos diarios reales'))
-#fig_epi.add_trace(go.Scatter(x = activos['Fecha'], y = activos['Casos Confirmados'], mode='lines+markers',name = 'Casos acumulados reales', line_color = 'red'))
+#fig_epi.add_trace(go.Scatter(x=modelo_epi['Fecha'], y= modelo_epi['CASOS'], mode='lines',line_color='red', name = 'Casos diarios acumulados'))
+##fig_epi.add_trace(go.Scatter(x = activos['Fecha'], y = activos['Casos Confirmados'], mode='lines+markers',name = 'Casos acumulados reales', line_color = 'red'))
 
 fig_epi.update_xaxes(rangeslider_visible=True)
-fig_epi.update_layout(title="Modelo fenomenológico",yaxis_title="Casos diarios",title_x=0.43,template = 'plotly_dark')
+fig_epi.update_layout(title="Modelo fenomenológico",yaxis_title="Casos acumulados",title_x=0.43,template = 'plotly_dark')
 
+
+### Casos acumulados
+
+#Modelo feno acumulados
+feno_d = pd.read_csv('model_data/feno_diarios.csv')
+feno_d['Fecha'] = date + np.arange(feno_d.shape[0])
+
+fig_feno_d = go.Figure()
+fig_feno_d.add_trace(go.Scatter(x=feno_d['Fecha'], y= feno_d['MCL'], mode='lines',line_color='orange', name = 'MCL'))
+fig_feno_d.add_trace(go.Scatter(x=feno_d['Fecha'], y= feno_d['MCLG'], mode='lines',line_color='green', name = 'MCLG'))
+fig_feno_d.add_trace(go.Scatter(x=feno_d['Fecha'], y= feno_d['MCR'], mode='lines',line_color='yellow', name = 'MCR'))
+fig_feno_d.add_trace(go.Scatter(x=feno_d['Fecha'], y= feno_d['MCRG'], mode='lines',line_color='blue', name = 'MCRG'))
+fig_feno_d.add_trace(go.Scatter(x=feno_d['Fecha'], y= feno_d['MCG'], mode='lines',line_color='pink', name = 'MCG'))
+fig_feno_d.add_trace(go.Scatter(x=feno_d['Fecha'], y= feno_d['MCGG'], mode='lines',line_color='gray', name = 'MCGG'))
+#fig_feno_d.add_trace(go.Scatter(x=feno_d['Fecha'], y= feno_d['CASOS'], mode='lines',line_color='red', name = 'Casos diarios reales'))
+##fig_epi.add_trace(go.Scatter(x = activos['Fecha'], y = activos['Casos Confirmados'], mode='lines+markers',name = 'Casos acumulados reales', line_color = 'red'))
+
+fig_feno_d.update_xaxes(rangeslider_visible=True)
+fig_feno_d.update_layout(title="Modelo fenomenológico",yaxis_title="Casos diarios",title_x=0.43,template = 'plotly_dark')
 
 mensaje_epi = html.P(['Los Modelos de Crecimiento que se emplean son: el exponencial (MCE), el logístico (MCL), el de Richards (MCR), el de Gompertz (MCG) y sus variantes generalizadas denotadas con MCEG, MCLG, MCRG y MCGG respectivamente, con datos proporcionados por las autoridades del estado de Yucatán hasta el día 17 de mayo de 2020. Ver resumen ', html.A('aquí.', href = 'https://github.com/Luisbaduy97/COVID-YUCATAN/blob/master/resumenes/ResumenYucatanFenomenologicos.pdf', target="_blank")], style = {'margin-left':'20%', 'margin-right':'20%', 'text-align':'justify'})
 
@@ -395,7 +414,7 @@ app.layout = html.Div([
     html.Div(children = [html.H3('Modelo SIR (I<<S) soluciones tipo Gompertz',id='sir_g'), mensaje_gompertz ,dcc.Graph(id='sir_g_ac', figure = fig_cajas_acumulado), dcc.Graph(id='sir_g_act', figure = fig_cajas_activo)]),
     html.Div(children = [html.H3('Modelo SEIR',id='seir'), mensaje_seir ,dcc.Graph(id='seir_plot', figure = fig_seir)]),
     html.Div(children = [html.H3('SIRD (simplificado con tasas dependientes del tiempo)',id='sird'), mensaje_sird ,dcc.Graph(id='sird_p', figure = fig_sird)]),
-    html.Div(children = [html.H3('Modelos Fenomenológicos',id='feno'), mensaje_epi ,dcc.Graph(id='feno_p', figure = fig_epi)]),
+    html.Div(children = [html.H3('Modelos Fenomenológicos',id='feno'), mensaje_epi ,dcc.Graph(id='feno_p', figure = fig_epi),dcc.Graph(id='feno_diario', figure = fig_feno_d)]),
     colab],style = {'background-color': '#121212', 'text-align': 'center','color': 'white'})
 
 
