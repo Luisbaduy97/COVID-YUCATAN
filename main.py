@@ -93,47 +93,22 @@ fig_sis.update_layout(title="Modelo SIS",yaxis_title="Casos",title_x=0.43,templa
 mensaje_sis = html.P(['Este es un modelo simple de compartimentos del tipo Susceptibles - Infectados - Susceptibles (SIS), se pretende encontrar la estimación de los parámetros de las tasas de infección y recuperación a partir del registro de datos reales. Ver resumen ', html.A('aquí.', href = 'https://github.com/Luisbaduy97/COVID-YUCATAN/blob/master/resumenes/ResumenYucatanSISrv.pdf', target="_blank")], style = {'margin-left':'20%', 'margin-right':'20%', 'text-align':'justify'})
 
 
-### Modelo Cajas
-date_c = np.array('2020-01-06', dtype=np.datetime64)
-
-mensaje_gompertz = html.P(['Se construye una aproximación analítica para la evolución de la curva epidémica de covid-19. Partiendo de la observación de que el número de infectados es mucho menor que la población total susceptible, se reduce el modelo susceptible-infectado-recuperado (SIR) y se obtiene una solución analítica de tipo Gompertz proponiendo una forma dependiente del tiempo para el parámetro de crecimiento. Ver resumen ', html.A('aquí.', href = 'https://github.com/Luisbaduy97/COVID-YUCATAN/blob/master/resumenes/ResumenYucatanSIRGpmpertz.pdf', target="_blank")], style = {'margin-left':'20%', 'margin-right':'20%', 'text-align':'justify'})
-
-cajas_activo = pd.read_csv('model_data/YUCATAN-predict-activos.csv')
-cajas_activo['Fecha'] = date_c + np.arange(cajas_activo.shape[0])
-
-fig_cajas_activo = go.Figure()
-fig_cajas_activo.add_trace(go.Scatter(x=cajas_activo['Fecha'], y= cajas_activo[' Infectados'], mode='lines',line_color='orange', name = 'Infectados'))
-fig_cajas_activo.add_trace(go.Scatter(x = activos['Fecha'], y = activos['Casos Activos'], mode='lines+markers',name = 'Casos activos reales', line_color = 'red'))
-
-fig_cajas_activo.update_xaxes(rangeslider_visible=True)
-fig_cajas_activo.update_layout(title="Modelo SIR Gompertz casos activos",yaxis_title="Casos activos",title_x=0.43,template = 'plotly_dark')
-
-cajas_acumulado = pd.read_csv('model_data/YUCATAN-predict.csv')
-cajas_acumulado['Fecha'] = date_c + np.arange(cajas_acumulado.shape[0])
-
-fig_cajas_acumulado = go.Figure()
-fig_cajas_acumulado.add_trace(go.Scatter(x=cajas_acumulado['Fecha'], y= cajas_acumulado[' Infectados '], mode='lines',line_color='orange', name = 'Infectados'))
-fig_cajas_acumulado.add_trace(go.Scatter(x = activos['Fecha'], y = activos['Casos Confirmados'], mode='lines+markers',name = 'Casos acumulados reales', line_color = 'red'))
-
-fig_cajas_acumulado.update_xaxes(rangeslider_visible=True)
-fig_cajas_acumulado.update_layout(title="Modelo SIR Gompertz casos acumulados",yaxis_title="Casos acumulados",title_x=0.43,template = 'plotly_dark')
-
 #Modelo feno diarios
-modelo_epi = pd.read_csv('model_data/feno_acumulados.csv')
-modelo_epi['Fecha'] = date + np.arange(modelo_epi.shape[0])
+# modelo_epi = pd.read_csv('model_data/feno_acumulados.csv')
+# modelo_epi['Fecha'] = date + np.arange(modelo_epi.shape[0])
 
-fig_epi = go.Figure()
-fig_epi.add_trace(go.Scatter(x=modelo_epi['Fecha'], y= modelo_epi['MCL'], mode='lines',line_color='orange', name = 'MCL'))
-fig_epi.add_trace(go.Scatter(x=modelo_epi['Fecha'], y= modelo_epi['MCLG'], mode='lines',line_color='green', name = 'MCLG'))
-fig_epi.add_trace(go.Scatter(x=modelo_epi['Fecha'], y= modelo_epi['MCR'], mode='lines',line_color='yellow', name = 'MCR'))
-fig_epi.add_trace(go.Scatter(x=modelo_epi['Fecha'], y= modelo_epi['MCRG'], mode='lines',line_color='blue', name = 'MCRG'))
-fig_epi.add_trace(go.Scatter(x=modelo_epi['Fecha'], y= modelo_epi['MCG'], mode='lines',line_color='pink', name = 'MCG'))
-fig_epi.add_trace(go.Scatter(x=modelo_epi['Fecha'], y= modelo_epi['MCGG'], mode='lines',line_color='gray', name = 'MCGG'))
-#fig_epi.add_trace(go.Scatter(x=modelo_epi['Fecha'], y= modelo_epi['CASOS'], mode='lines',line_color='red', name = 'Casos diarios acumulados'))
-##fig_epi.add_trace(go.Scatter(x = activos['Fecha'], y = activos['Casos Confirmados'], mode='lines+markers',name = 'Casos acumulados reales', line_color = 'red'))
+# fig_epi = go.Figure()
+# fig_epi.add_trace(go.Scatter(x=modelo_epi['Fecha'], y= modelo_epi['MCL'], mode='lines',line_color='orange', name = 'MCL'))
+# fig_epi.add_trace(go.Scatter(x=modelo_epi['Fecha'], y= modelo_epi['MCLG'], mode='lines',line_color='green', name = 'MCLG'))
+# fig_epi.add_trace(go.Scatter(x=modelo_epi['Fecha'], y= modelo_epi['MCR'], mode='lines',line_color='yellow', name = 'MCR'))
+# fig_epi.add_trace(go.Scatter(x=modelo_epi['Fecha'], y= modelo_epi['MCRG'], mode='lines',line_color='blue', name = 'MCRG'))
+# fig_epi.add_trace(go.Scatter(x=modelo_epi['Fecha'], y= modelo_epi['MCG'], mode='lines',line_color='pink', name = 'MCG'))
+# fig_epi.add_trace(go.Scatter(x=modelo_epi['Fecha'], y= modelo_epi['MCGG'], mode='lines',line_color='gray', name = 'MCGG'))
+# #fig_epi.add_trace(go.Scatter(x=modelo_epi['Fecha'], y= modelo_epi['CASOS'], mode='lines',line_color='red', name = 'Casos diarios acumulados'))
+# ##fig_epi.add_trace(go.Scatter(x = activos['Fecha'], y = activos['Casos Confirmados'], mode='lines+markers',name = 'Casos acumulados reales', line_color = 'red'))
 
-fig_epi.update_xaxes(rangeslider_visible=True)
-fig_epi.update_layout(title="Modelo fenomenológico",yaxis_title="Casos acumulados",title_x=0.43,template = 'plotly_dark')
+# fig_epi.update_xaxes(rangeslider_visible=True)
+# fig_epi.update_layout(title="Modelo fenomenológico",yaxis_title="Casos acumulados",title_x=0.43,template = 'plotly_dark')
 
 
 ### Casos acumulados
@@ -153,7 +128,7 @@ fig_feno_d.add_trace(go.Scatter(x=feno_d['Fecha'], y= feno_d['MCGG'], mode='line
 ##fig_epi.add_trace(go.Scatter(x = activos['Fecha'], y = activos['Casos Confirmados'], mode='lines+markers',name = 'Casos acumulados reales', line_color = 'red'))
 
 fig_feno_d.update_xaxes(rangeslider_visible=True)
-fig_feno_d.update_layout(title="Modelo fenomenológico",yaxis_title="Casos diarios",title_x=0.43,template = 'plotly_dark')
+fig_feno_d.update_layout(title="Modelos fenomenológicos",yaxis_title="Casos diarios",title_x=0.43,template = 'plotly_dark')
 
 mensaje_epi = html.P(['Los Modelos de Crecimiento que se emplean son: el exponencial (MCE), el logístico (MCL), el de Richards (MCR), el de Gompertz (MCG) y sus variantes generalizadas denotadas con MCEG, MCLG, MCRG y MCGG respectivamente, con datos proporcionados por las autoridades del estado de Yucatán hasta el día 17 de mayo de 2020. Ver resumen ', html.A('aquí.', href = 'https://github.com/Luisbaduy97/COVID-YUCATAN/blob/master/resumenes/ResumenYucatanFenomenologicos.pdf', target="_blank")], style = {'margin-left':'20%', 'margin-right':'20%', 'text-align':'justify'})
 
@@ -166,7 +141,7 @@ fig_seir = go.Figure()
 fig_seir.add_trace(go.Scatter(x=seir['Fecha'], y= seir['Expuestos'], mode='lines',line_color='yellow', name = 'Expuestos'))
 fig_seir.add_trace(go.Scatter(x=seir['Fecha'], y= seir['Infectados'], mode='lines',line_color='orange', name = 'Infectados'))
 fig_seir.add_trace(go.Scatter(x=seir['Fecha'], y= seir['Recuperados'], mode='lines',line_color='green', name = 'Recuperados'))
-fig_seir.add_trace(go.Scatter(x=seir['Fecha'], y= seir['Infectados acumulados'], mode='lines',line_color='red', name = 'Infectaods acumulados'))
+fig_seir.add_trace(go.Scatter(x=seir['Fecha'], y= seir['Infectados acumulados'], mode='lines',line_color='red', name = 'Infectados acumulados'))
 
 fig_seir.update_xaxes(rangeslider_visible=True)
 fig_seir.update_layout(title="Modelo SEIR",yaxis_title="Número de casos",title_x=0.43,template = 'plotly_dark')
@@ -199,6 +174,12 @@ fig_sird.update_layout(title="Modelo SIR por diferencias",yaxis_title="Número d
 
 
 mensaje_sird = html.P(['Para este estudio se ha considerado un modelo SIRD simplificado a una ecuación, pero con tasas dependientes del tiempo, y el registro de datos reales dentro del periodo del 13 de marzo al 20 de mayo 2020. Ver resumen ', html.A('aquí.', href = 'https://github.com/Luisbaduy97/COVID-YUCATAN/blob/master/resumenes/ResumenYucatan_Diferencias.pdf', target="_blank")], style = {'margin-left':'20%', 'margin-right':'20%', 'text-align':'justify'})
+
+######### Wave model
+
+
+
+
 ########################################################################
 
 
@@ -341,6 +322,35 @@ figx.add_trace(go.Scatter(x=nii['FECHA_INGRESO'].values.tolist(),y=nii['ACUMULAD
 figx.update_layout(title="Casos acumulados en el estado",xaxis_title="Fecha de ingreso",yaxis_title="Acumulado", title_x=0.5, legend_orientation="h", template = 'plotly_dark')
 figx.update_xaxes(rangeslider_visible=True)
 
+#####Modelos cajas#######
+date_c = np.array('2020-01-06', dtype=np.datetime64)
+
+mensaje_gompertz = html.P(['Se construye una aproximación analítica para la evolución de la curva epidémica de covid-19. Partiendo de la observación de que el número de infectados es mucho menor que la población total susceptible, se reduce el modelo susceptible-infectado-recuperado (SIR) y se obtiene una solución analítica de tipo Gompertz proponiendo una forma dependiente del tiempo para el parámetro de crecimiento. Ver resumen ', html.A('aquí.', href = 'https://github.com/Luisbaduy97/COVID-YUCATAN/blob/master/resumenes/ResumenYucatanSIRGpmpertz.pdf', target="_blank")], style = {'margin-left':'20%', 'margin-right':'20%', 'text-align':'justify'})
+
+cajas_activo = pd.read_csv('model_data/update/YUCATAN-predict.dat', sep='\t')
+cajas_activo['Fecha'] = date_c + np.arange(cajas_activo.shape[0])
+
+fig_cajas_activo = go.Figure()
+fig_cajas_activo.add_trace(go.Scatter(x=cajas_activo['Fecha'], y= cajas_activo[' Infectados '], mode='lines',line_color='orange', name = 'Infectados'))
+fig_cajas_activo.add_trace(go.Scatter(x=cajas_activo['Fecha'], y= cajas_activo[' Recuperados '], mode='lines',line_color='green', name = 'Recuperados'))
+
+#fig_cajas_activo.add_trace(go.Scatter(x = activos['Fecha'], y = activos['Casos Activos'], mode='lines+markers',name = 'Casos activos reales', line_color = 'red'))
+
+fig_cajas_activo.update_xaxes(rangeslider_visible=True)
+fig_cajas_activo.update_layout(title="Modelo SIR Gompertz casos activos",yaxis_title="Casos activos",title_x=0.43,template = 'plotly_dark')
+
+#cajas_acumulado = pd.read_csv('model_data/YUCATAN-predict.csv')
+cajas_acumulado = pd.read_csv('model_data/update/YUCATAN-predict-It.dat', sep='\t')
+cajas_acumulado['Fecha'] = date_c + np.arange(cajas_acumulado.shape[0])
+
+fig_cajas_acumulado = go.Figure()
+fig_cajas_acumulado.add_trace(go.Scatter(x=cajas_acumulado['Fecha'], y= cajas_acumulado['YUCATAN Infectados-totales '], mode='lines',line_color='orange', name = 'Infectados'))
+fig_cajas_acumulado.add_trace(go.Scatter(x=cajas_acumulado['Fecha'], y= cajas_acumulado[' Recuperados '], mode='lines',line_color='green', name = 'Recuperados'))
+fig_cajas_acumulado.add_trace(go.Scatter(x=fii['FECHA_INGRESO'].values.tolist(),y=fii['ACUMULADO'].values.tolist(), mode='lines+markers', name = 'Casos acumulados positivos', line_color= 'red'))
+
+fig_cajas_acumulado.update_xaxes(rangeslider_visible=True)
+fig_cajas_acumulado.update_layout(title="Modelo SIR Gompertz casos acumulados",yaxis_title="Casos acumulados",title_x=0.43,template = 'plotly_dark')
+
 
 
 ####################### Agregando los modelo matemáticos #############
@@ -416,7 +426,7 @@ app.layout = html.Div([
     html.Div(children = [html.H3('Modelo SIR (I<<S) soluciones tipo Gompertz',id='sir_g'), mensaje_gompertz ,dcc.Graph(id='sir_g_ac', figure = fig_cajas_acumulado), dcc.Graph(id='sir_g_act', figure = fig_cajas_activo)]),
     html.Div(children = [html.H3('Modelo SEIR',id='seir'), mensaje_seir ,dcc.Graph(id='seir_plot', figure = fig_seir)]),
     html.Div(children = [html.H3('SIRD (simplificado con tasas dependientes del tiempo)',id='sird'), mensaje_sird ,dcc.Graph(id='sird_p', figure = fig_sird)]),
-    html.Div(children = [html.H3('Modelos Fenomenológicos',id='feno'), mensaje_epi ,dcc.Graph(id='feno_p', figure = fig_epi),dcc.Graph(id='feno_diario', figure = fig_feno_d)]),
+    html.Div(children = [html.H3('Modelos Fenomenológicos',id='feno'), mensaje_epi ,dcc.Graph(id='feno_diario', figure = fig_feno_d)]),
     colab],style = {'background-color': '#121212', 'text-align': 'center','color': 'white'})
 
 
