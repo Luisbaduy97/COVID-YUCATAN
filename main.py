@@ -44,8 +44,6 @@ tprs_lower = mean_tpr - std_tpr
 
 mensaje = 'Se trata de un ejercicio académico para estudiar la evolución de la COVID-19 en el Estado de Yucatán, México. Para este estudio se han considerado diferentes modelos epidemiológicos y datos reales publicados por las autoridades sanitarias a partir del 13 de marzo 2020. Como todo modelo matemático lo que se brinda es la estimación que arroja el modelo pero que no es una verdad absoluta, de cualquier manera, pudiera ser una alerta útil de prevención para la población.'
 
-
-
 #### Modelo Dr Jorge, Dr Julián
 
 data_sir_j = pd.read_csv('model_data/modeloSIR.csv')
