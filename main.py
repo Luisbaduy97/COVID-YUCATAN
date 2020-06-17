@@ -125,6 +125,7 @@ fig_feno_d.add_trace(go.Scatter(x=feno_d['Fecha'], y= feno_d['MCRG'], mode='line
 fig_feno_d.add_trace(go.Scatter(x=feno_d['Fecha'], y= feno_d['MCG'], mode='lines',line_color='pink', name = 'MCG'))
 fig_feno_d.add_trace(go.Scatter(x=feno_d['Fecha'], y= feno_d['MCGG'], mode='lines',line_color='gray', name = 'MCGG'))
 #fig_feno_d.add_trace(go.Scatter(x=feno_d['Fecha'], y= feno_d['CASOS'], mode='lines',line_color='red', name = 'Casos diarios reales'))
+
 ##fig_epi.add_trace(go.Scatter(x = activos['Fecha'], y = activos['Casos Confirmados'], mode='lines+markers',name = 'Casos acumulados reales', line_color = 'red'))
 
 fig_feno_d.update_xaxes(rangeslider_visible=True)
@@ -333,7 +334,7 @@ cajas_activo['Fecha'] = date_c + np.arange(cajas_activo.shape[0])
 fig_cajas_activo = go.Figure()
 fig_cajas_activo.add_trace(go.Scatter(x=cajas_activo['Fecha'], y= cajas_activo[' Infectados '], mode='lines',line_color='orange', name = 'Infectados'))
 fig_cajas_activo.add_trace(go.Scatter(x=cajas_activo['Fecha'], y= cajas_activo[' Recuperados '], mode='lines',line_color='green', name = 'Recuperados'))
-
+fig_cajas_activo.add_trace(go.Scatter(x = activos['Fecha'], y = activos['Casos Activos'], mode='lines+markers',name = 'Casos activos reales', line_color = 'yellow'))
 #fig_cajas_activo.add_trace(go.Scatter(x = activos['Fecha'], y = activos['Casos Activos'], mode='lines+markers',name = 'Casos activos reales', line_color = 'red'))
 
 fig_cajas_activo.update_xaxes(rangeslider_visible=True)
