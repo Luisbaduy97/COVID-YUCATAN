@@ -42,7 +42,8 @@ tprs_upper = mean_tpr + std_tpr
 tprs_lower = mean_tpr - std_tpr
 
 
-mensaje = 'Se trata de un ejercicio académico para estudiar la evolución del COVID-19 en el Estado de Yucatán, México. Para este estudio se ha considerado diferentes modelos epidemiológicos y el registro de datos reales a partir del 13 de marzo. Como todo modelo matemático lo que se brinda es la estimación que arroja el modelo pero que no es una verdad absoluta, de cualquier manera, pudiera ser una alerta útil de prevención para la población. Investigadores y estudiantes asociados continúan trabajando en otros modelos matemáticos más generales que contemplen otras variables y métodos de solución.'
+mensaje = 'Se trata de un ejercicio académico para estudiar la evolución de la COVID-19 en el Estado de Yucatán, México. Para este estudio se han considerado diferentes modelos epidemiológicos y datos reales publicados por las autoridades sanitarias a partir del 13 de marzo 2020. Como todo modelo matemático lo que se brinda es la estimación que arroja el modelo pero que no es una verdad absoluta, de cualquier manera, pudiera ser una alerta útil de prevención para la población.'
+
 
 
 #### Modelo Dr Jorge, Dr Julián
@@ -53,12 +54,12 @@ data_sir_j['Fecha'] = date_sir_j
 
 fig_sir_j = go.Figure()
 #fig_sir_j.add_trace(go.Scatter(x=data_sir_j['Fecha'], y= data_sir_j['Susceptibles'], mode='lines',line_color='blue', name = 'Susceptibles'))
-fig_sir_j.add_trace(go.Scatter(x=data_sir_j['Fecha'], y= data_sir_j['Infectados'], mode='lines',line_color='orange', name = 'Infectados'))
+fig_sir_j.add_trace(go.Scatter(x=data_sir_j['Fecha'], y= data_sir_j['Infectados'], mode='lines',line_color='orange', name = 'Infectados (Modelo SIR)'))
 #fig_sir_j.add_trace(go.Scatter(x=data_sir_j['Fecha'], y= data_sir_j['Recuperados'], mode='lines',line_color='green', name = 'Recuperados'))
 fig_sir_j.add_trace(go.Scatter(x = activos['Fecha'], y = activos['Casos Activos'], mode='lines+markers',name = 'Casos activos reales', line_color = 'red'))
 
 fig_sir_j.update_xaxes(rangeslider_visible=True)
-fig_sir_j.update_layout(title="Modelo SIR",yaxis_title="Casos activos",title_x=0.43,template = 'plotly_dark')
+fig_sir_j.update_layout(title="Modelo SIR",yaxis_title="Número de personas",title_x=0.43,template = 'plotly_dark')
 
 #fig_sir_j_s = go.Figure()
 #fig_sir_j_s.add_trace(go.Scatter(x=data_sir_j['Fecha'], y= data_sir_j['Susceptibles'], mode='lines',line_color='blue', name = 'Susceptibles'))
@@ -66,7 +67,7 @@ fig_sir_j.update_layout(title="Modelo SIR",yaxis_title="Casos activos",title_x=0
 #fig_sir_j_s.update_layout(title="Modelo SIR",yaxis_title="Susceptibles",title_x=0.43,template = 'plotly_dark')
 
 
-mensaje_sir = html.P(['El modelo SIR (susceptible-infectado-recuperado), también conocido como el modelo de Kermack y McKendrick por su famoso artículo, es un modelo clásico que, junto al teorema del umbral epidemiológico derivado de este, ha jugado un papel fundamental en desarrollos posteriores en el estudio de la dinámica de transmisión de enfermedades infecciosas. Ver resumen ', html.A('aquí.', href = 'https://github.com/Luisbaduy97/COVID-YUCATAN/blob/master/resumenes/ResumenYucatanSIR.pdf', target="_blank")], style = {'margin-left':'20%', 'margin-right':'20%', 'text-align':'justify'})
+mensaje_sir = html.P(['El modelo SIR (susceptible-infectado-recuperado), también conocido como el modelo de Kermack y McKendrick por su famoso artículo, es un modelo clásico que, junto al teorema del umbral epidemiológico derivado de este; ha jugado un papel fundamental en desarrollos posteriores en el estudio de la dinámica de transmisión de enfermedades infecciosas. Ver resumen ', html.A('aquí.', href = 'https://github.com/Luisbaduy97/COVID-YUCATAN/blob/master/resumenes/ResumenYucatanSIR.pdf', target="_blank")], style = {'margin-left':'20%', 'margin-right':'20%', 'text-align':'justify'})
 
 ### Modelo SIS
 data_sis_n = pd.read_csv('model_data/modelo_SIS.csv')
