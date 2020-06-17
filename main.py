@@ -293,7 +293,7 @@ fig2.add_trace(go.Histogram(histfunc="count", y=ob['OBESIDAD'], x=ob['Gender'], 
 fig2.add_trace(go.Histogram(histfunc="count", y=car['CARDIOVASCULAR'], x=car['Gender'], name="CARDIOVASCULAR"))
 fig2.add_trace(go.Histogram(histfunc="count", y=asma['ASMA'], x=asma['Gender'], name="ASMA"))
 fig2.add_trace(go.Histogram(histfunc="count", y=inmu['INMUSUPR'], x=inmu['Gender'], name="INMUNOSUPR"))
-fig2.update_layout(title="Casos positivos que presentan otra enfermedad",title_x=0.5, template = 'plotly_dark')
+fig2.update_layout(title="Comorbilidades",title_x=0.5, template = 'plotly_dark')
 
 
 
@@ -408,7 +408,7 @@ intro = html.Div(children = [
 ########### Colaboradores ###################
 
 colab = html.Div(children = [html.H2('Integrantes y colaboradores', id='colab'),
-                             html.Img(src = 'https://github.com/Luisbaduy97/COVID-YUCATAN/blob/master/logos/Grupo_colaboradores2.png?raw=true')],
+                             html.Img(src = 'https://github.com/Luisbaduy97/COVID-YUCATAN/blob/master/logos/Grupo_ADyMM.png?raw=true')],
                  style = {'margin-left': 'auto', 'margin-right': 'auto'})
 
 
