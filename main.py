@@ -94,21 +94,21 @@ mensaje_sis = html.P(['Este es un modelo simple de compartimentos del tipo Susce
 
 
 #Modelo feno diarios
-# modelo_epi = pd.read_csv('model_data/feno_acumulados.csv')
-# modelo_epi['Fecha'] = date + np.arange(modelo_epi.shape[0])
+modelo_epi = pd.read_csv('model_data/feno_acumulados.csv')
+modelo_epi['Fecha'] = date + np.arange(modelo_epi.shape[0])
 
-# fig_epi = go.Figure()
-# fig_epi.add_trace(go.Scatter(x=modelo_epi['Fecha'], y= modelo_epi['MCL'], mode='lines',line_color='orange', name = 'MCL'))
-# fig_epi.add_trace(go.Scatter(x=modelo_epi['Fecha'], y= modelo_epi['MCLG'], mode='lines',line_color='green', name = 'MCLG'))
-# fig_epi.add_trace(go.Scatter(x=modelo_epi['Fecha'], y= modelo_epi['MCR'], mode='lines',line_color='yellow', name = 'MCR'))
-# fig_epi.add_trace(go.Scatter(x=modelo_epi['Fecha'], y= modelo_epi['MCRG'], mode='lines',line_color='blue', name = 'MCRG'))
-# fig_epi.add_trace(go.Scatter(x=modelo_epi['Fecha'], y= modelo_epi['MCG'], mode='lines',line_color='pink', name = 'MCG'))
-# fig_epi.add_trace(go.Scatter(x=modelo_epi['Fecha'], y= modelo_epi['MCGG'], mode='lines',line_color='gray', name = 'MCGG'))
-# #fig_epi.add_trace(go.Scatter(x=modelo_epi['Fecha'], y= modelo_epi['CASOS'], mode='lines',line_color='red', name = 'Casos diarios acumulados'))
-# ##fig_epi.add_trace(go.Scatter(x = activos['Fecha'], y = activos['Casos Confirmados'], mode='lines+markers',name = 'Casos acumulados reales', line_color = 'red'))
+fig_epi = go.Figure()
+fig_epi.add_trace(go.Scatter(x=modelo_epi['Fecha'], y= modelo_epi['MCL'], mode='lines',line_color='orange', name = 'MCL'))
+fig_epi.add_trace(go.Scatter(x=modelo_epi['Fecha'], y= modelo_epi['MCLG'], mode='lines',line_color='green', name = 'MCLG'))
+fig_epi.add_trace(go.Scatter(x=modelo_epi['Fecha'], y= modelo_epi['MCR'], mode='lines',line_color='yellow', name = 'MCR'))
+fig_epi.add_trace(go.Scatter(x=modelo_epi['Fecha'], y= modelo_epi['MCRG'], mode='lines',line_color='blue', name = 'MCRG'))
+fig_epi.add_trace(go.Scatter(x=modelo_epi['Fecha'], y= modelo_epi['MCG'], mode='lines',line_color='pink', name = 'MCG'))
+fig_epi.add_trace(go.Scatter(x=modelo_epi['Fecha'], y= modelo_epi['MCGG'], mode='lines',line_color='gray', name = 'MCGG'))
+#fig_epi.add_trace(go.Scatter(x=modelo_epi['Fecha'], y= modelo_epi['CASOS'], mode='lines',line_color='red', name = 'Casos diarios acumulados'))
+fig_epi.add_trace(go.Scatter(x = activos['Fecha'], y = activos['Casos Confirmados'], mode='lines+markers',name = 'Casos acumulados reales', line_color = 'red'))
 
-# fig_epi.update_xaxes(rangeslider_visible=True)
-# fig_epi.update_layout(title="Modelo fenomenológico",yaxis_title="Casos acumulados",title_x=0.43,template = 'plotly_dark')
+fig_epi.update_xaxes(rangeslider_visible=True)
+fig_epi.update_layout(title="Modelos fenomenológicos",yaxis_title="Casos acumulados",title_x=0.43,template = 'plotly_dark')
 
 
 ### Casos acumulados
@@ -427,7 +427,7 @@ app.layout = html.Div([
     html.Div(children = [html.H3('Modelo SIR (I<<S) soluciones tipo Gompertz',id='sir_g'), mensaje_gompertz ,dcc.Graph(id='sir_g_ac', figure = fig_cajas_acumulado), dcc.Graph(id='sir_g_act', figure = fig_cajas_activo)]),
     html.Div(children = [html.H3('Modelo SEIR',id='seir'), mensaje_seir ,dcc.Graph(id='seir_plot', figure = fig_seir)]),
     html.Div(children = [html.H3('SIRD (simplificado con tasas dependientes del tiempo)',id='sird'), mensaje_sird ,dcc.Graph(id='sird_p', figure = fig_sird)]),
-    html.Div(children = [html.H3('Modelos Fenomenológicos',id='feno'), mensaje_epi ,dcc.Graph(id='feno_diario', figure = fig_feno_d)]),
+    html.Div(children = [html.H3('Modelos Fenomenológicos',id='feno'), mensaje_epi, dcc.Graph(id='feno_acumulado', figure = fig_epi),dcc.Graph(id='feno_diario', figure = fig_feno_d)]),
     colab],style = {'background-color': '#121212', 'text-align': 'center','color': 'white'})
 
 
