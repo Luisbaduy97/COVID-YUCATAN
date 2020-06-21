@@ -188,7 +188,7 @@ mensaje_sird = html.P(['Para este estudio se ha considerado un modelo SIRD simpl
 
 ##covid = pd.read_csv('https://github.com/Luisbaduy97/COVID-YUCATAN/blob/master/historical_db/200613COVID19MEXICO.csv?raw=true', encoding="ISO-8859-1") # manual
 
-covid = pd.read_csv('historical_db/200619COVID19MEXICO.csv', encoding="ISO-8859-1") # manual
+covid = pd.read_csv('historical_db/200620COVID19MEXICO.csv', encoding="ISO-8859-1") # manual
 
 
 coords = pd.read_csv('coordenadas.csv')
@@ -328,7 +328,7 @@ date_c = np.array('2020-01-06', dtype=np.datetime64)
 
 mensaje_gompertz = html.P(['Se construye una aproximación analítica para la evolución de la curva epidémica de covid-19. Partiendo de la observación de que el número de infectados es mucho menor que la población total susceptible, se reduce el modelo susceptible-infectado-recuperado (SIR) y se obtiene una solución analítica de tipo Gompertz proponiendo una forma dependiente del tiempo para el parámetro de crecimiento. Ver resumen ', html.A('aquí.', href = 'https://github.com/Luisbaduy97/COVID-YUCATAN/blob/master/resumenes/ResumenYucatanSIRGpmpertz.pdf', target="_blank")], style = {'margin-left':'20%', 'margin-right':'20%', 'text-align':'justify'})
 #activos
-cajas_activo = pd.read_csv('model_data/YUCATAN-predict.dat', sep='\t')
+cajas_activo = pd.read_csv('model_data/YUCATAN-predict.csv', sep='\t')
 cajas_activo['Fecha'] = date_c + np.arange(cajas_activo.shape[0])
 
 fig_cajas_activo = go.Figure()
@@ -341,7 +341,7 @@ fig_cajas_activo.update_xaxes(rangeslider_visible=True)
 fig_cajas_activo.update_layout(title="Modelo SIR Gompertz casos activos",yaxis_title="Casos activos",title_x=0.43,template = 'plotly_dark')
 
 #cajas acumulados
-cajas_acumulado = pd.read_csv('model_data/YUCATAN-predict-It.dat', sep='\t')
+cajas_acumulado = pd.read_csv('model_data/YUCATAN-predict-It.csv', sep='\t')
 cajas_acumulado['Fecha'] = date_c + np.arange(cajas_acumulado.shape[0])
 
 fig_cajas_acumulado = go.Figure()
