@@ -124,7 +124,7 @@ fig_feno_d.add_trace(go.Scatter(x=feno_d['Fecha'], y= feno_d['MCR'], mode='lines
 fig_feno_d.add_trace(go.Scatter(x=feno_d['Fecha'], y= feno_d['MCRG'], mode='lines',line_color='blueviolet', name = 'MCRG (predicción)'))
 fig_feno_d.add_trace(go.Scatter(x=feno_d['Fecha'], y= feno_d['MCG'], mode='lines',line_color='pink', name = 'MCG (predicción)'))
 fig_feno_d.add_trace(go.Scatter(x=feno_d['Fecha'], y= feno_d['MCGG'], mode='lines',line_color='gray', name = 'MCGG (predicción)'))
-#fig_feno_d.add_trace(go.Scatter(x=feno_d['Fecha'], y= feno_d['CASOS'], mode='lines',line_color='red', name = 'Casos diarios reales'))
+fig_feno_d.add_trace(go.Scatter(x=feno_d['Fecha'], y= feno_d['Inf Casos diarios'], mode='lines',line_color='red', name = 'Casos diarios reales'))
 
 ##fig_epi.add_trace(go.Scatter(x = activos['Fecha'], y = activos['Casos Confirmados'], mode='lines+markers',name = 'Casos acumulados reales', line_color = 'red'))
 
@@ -394,7 +394,7 @@ contacto = html.Div(children = [html.P("Contacto: covid-yucatan@iimas.unam.mx")]
 table = html.Div(children = [html.Table(children = [
     html.Tr(children = [
         html.Td(html.Img(src = 'https://github.com/Luisbaduy97/COVID-YUCATAN/blob/master/logos/unam.png?raw=true', style = {'width':'100px'})),
-        html.Td(html.H1('Grupo de análisis de datos y modelación matemática'), style = {'color' : 'black'})])
+        html.Td(html.H1('Proyecto COVID-19'), style = {'color' : 'black'})])
     ], style = {'margin-left': 'auto', 'margin-right': 'auto'})], style = {'background-color':'white'})
 
 
@@ -404,7 +404,8 @@ table = html.Div(children = [html.Table(children = [
 #     html.P('Es un esfuerzo dirigido a modelar la evolución del COVID-19 en el estado de Yucatán. Este trabajo es un proyecto totalmente académico que presenta resultados de la posible evolución de la pandemia. Utilizamos diferentes modelos matemáticos y datos reales  publicados por las autoridades sanitarias a partir del 13 de marzo de 2020. Este proyecto es sólo informativo y no se busca que estos resultados sean considerados ni reportados como una información confirmada para guiar decisiones clínicas.', style = {'margin-left':'20%', 'margin-right':'20%', 'text-align':'justify'})
 #     ])
 
-intro = html.Div(children = [html.H2('¿Quiénes somos?'),
+intro = html.Div(children = [html.H2("Grupo de análisis de datos y modelación matemática"),
+                             html.H2('¿Quiénes somos?'),
                              html.P('Somos un grupo conformado por académicos pertenecientes a las entidades de la UNAM en Yucatán. Nuestro objetivo es desarrollar modelos matemáticos y computacionales orientados principalmente a atender problemáticas a nivel regional.', style = {'margin-left':'20%', 'margin-right':'20%', 'text-align':'justify'}),
                              html.H2('Proyecto COVID-19'),
                              html.P('Este proyecto un esfuerzo dirigido a modelar la evolución de la COVID-19 en el Estado de Yucatán. Este trabajo es un proyecto totalmente académico que presenta resultados de la posible evolución de la pandemia en la región. Utilizamos diferentes modelos matemáticos y datos reales  publicados por las autoridades sanitarias a partir del 13 de marzo de 2020. Este proyecto es sólo informativo y no se busca que estos resultados sean considerados ni reportados como una información confirmada para guiar decisiones clínicas.', style = {'margin-left':'20%', 'margin-right':'20%', 'text-align':'justify'})])
@@ -423,7 +424,7 @@ colab = html.Div(children = [html.H2('Integrantes y colaboradores', id='colab'),
 app.layout = html.Div([
     table,
     intro,
-    html.Div(children = [html.H2('Contenido'), html.P('En este sitio encontrarás gráficas interactivas sobre la evolución del COVID-19 en Yucatán. Se presentan diferentes modelos matemáticos y podrás descargar un resumen detallado de ellos.', style = {'margin-left':'20%', 'margin-right':'20%', 'text-align':'justify'}),index, contacto]),
+    html.Div(children = [html.H2('Contenido'), html.P('En este sitio encontrarás gráficas interactivas sobre la evolución de la COVID-19 en Yucatán. Se presentan diferentes modelos matemáticos y podrás descargar un resumen detallado de ellos.', style = {'margin-left':'20%', 'margin-right':'20%', 'text-align':'justify'}),index, contacto]),
     html.Div(children = [html.H2('COVID-19 Yucatán', id = 'casos-yuc'),html.Div([html.Div([dcc.Graph(id='acumulado', figure = figx)], className = 'six columns'),html.Div([dcc.Graph(id='d2', figure = fig2)], className = 'six columns')], className = "row")]),
     html.Div(children = [html.H3('Mapa de casos en Yucatán por municipio'), dcc.Graph(id='mapa', figure = fig)]),
     html.Div(children = [html.H2('Modelos matemáticos', id = 'mode_m'), html.P(mensaje, style = {'margin-left':'20%', 'margin-right':'20%', 'text-align':'justify'})]),
