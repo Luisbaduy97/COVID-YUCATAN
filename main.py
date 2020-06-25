@@ -124,7 +124,7 @@ fig_feno_d.add_trace(go.Scatter(x=feno_d['Fecha'], y= feno_d['MCR'], mode='lines
 fig_feno_d.add_trace(go.Scatter(x=feno_d['Fecha'], y= feno_d['MCRG'], mode='lines',line_color='blueviolet', name = 'MCRG (predicción)'))
 fig_feno_d.add_trace(go.Scatter(x=feno_d['Fecha'], y= feno_d['MCG'], mode='lines',line_color='pink', name = 'MCG (predicción)'))
 fig_feno_d.add_trace(go.Scatter(x=feno_d['Fecha'], y= feno_d['MCGG'], mode='lines',line_color='gray', name = 'MCGG (predicción)'))
-fig_feno_d.add_trace(go.Scatter(x=feno_d['Fecha'], y= feno_d['Inf Casos diarios'], mode='lines',line_color='red', name = 'Casos diarios reales'))
+fig_feno_d.add_trace(go.Scatter(x=feno_d['Fecha'], y= feno_d['Inf Casos diarios'], mode='lines+markers',line_color='red', name = 'Casos diarios reales'))
 
 ##fig_epi.add_trace(go.Scatter(x = activos['Fecha'], y = activos['Casos Confirmados'], mode='lines+markers',name = 'Casos acumulados reales', line_color = 'red'))
 
@@ -408,7 +408,7 @@ intro = html.Div(children = [html.H2("Grupo de análisis de datos y modelación 
                              html.H2('¿Quiénes somos?'),
                              html.P('Somos un grupo conformado por académicos pertenecientes a las entidades de la UNAM en Yucatán. Nuestro objetivo es desarrollar modelos matemáticos y computacionales orientados principalmente a atender problemáticas a nivel regional.', style = {'margin-left':'20%', 'margin-right':'20%', 'text-align':'justify'}),
                              html.H2('Proyecto COVID-19'),
-                             html.P('Este proyecto un esfuerzo dirigido a modelar la evolución de la COVID-19 en el Estado de Yucatán. Este trabajo es un proyecto totalmente académico que presenta resultados de la posible evolución de la pandemia en la región. Utilizamos diferentes modelos matemáticos y datos reales  publicados por las autoridades sanitarias a partir del 13 de marzo de 2020. Este proyecto es sólo informativo y no se busca que estos resultados sean considerados ni reportados como una información confirmada para guiar decisiones clínicas.', style = {'margin-left':'20%', 'margin-right':'20%', 'text-align':'justify'})])
+                             html.P('Este proyecto es un esfuerzo dirigido a modelar la evolución de la COVID-19 en el Estado de Yucatán. Este trabajo es un proyecto totalmente académico que presenta resultados de la posible evolución de la pandemia en la región. Utilizamos diferentes modelos matemáticos y datos reales  publicados por las autoridades sanitarias a partir del 13 de marzo de 2020. Este proyecto es sólo informativo y no se busca que estos resultados sean considerados ni reportados como una información confirmada para guiar decisiones clínicas.', style = {'margin-left':'20%', 'margin-right':'20%', 'text-align':'justify'})])
 
 
 ########### Colaboradores ###################
