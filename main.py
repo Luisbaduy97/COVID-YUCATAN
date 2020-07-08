@@ -188,7 +188,7 @@ mensaje_sird = html.P(['Para este estudio se ha considerado un modelo SIRD (Susc
 
 #covid = pd.read_csv('historical_db/200707COVID19MEXICO.csv', encoding="ISO-8859-1") # manual
 
-covid = pd.read_csv('historical_db/datos_abiertos_covid19.zip', encoding="ISO-8859-1") # manual
+covid = pd.read_csv('historical_db/data_yucatan.csv', encoding="ISO-8859-1") # manual
 
 
 coords = pd.read_csv('coordenadas.csv')
