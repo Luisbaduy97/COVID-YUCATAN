@@ -204,7 +204,7 @@ yucatan = covid[covid['ENTIDAD_RES'] == 31]
 
 
 
-yuc2 = yucatan.groupby(by=['MUNICIPIO_RES'])['RESULTADO'].value_counts()
+yuc2 = yucatan.groupby(by=['MUNICIPIO_RES'])['RESULTADO_LAB'].value_counts()
 
 yuc2 = pd.Series(yuc2.values, index = yuc2.index).reset_index().rename(columns={0: 'SUMA'})
 
@@ -213,7 +213,7 @@ yuc2 = pd.Series(yuc2.values, index = yuc2.index).reset_index().rename(columns={
 yuc2 = yuc2[yuc2['MUNICIPIO_RES'] != 999] #Quito a los no especificados
 
 yuc2['MUNICIPIO'] = [d.get(m) for m in yuc2['MUNICIPIO_RES'].values.tolist()]
-yuc2['RESULTADO2'] = [d2.get(m) for m in yuc2['RESULTADO'].values.tolist()]
+yuc2['RESULTADO2'] = [d2.get(m) for m in yuc2['RESULTADO_LAB'].values.tolist()]
 
 
 
@@ -266,7 +266,7 @@ fig.update_layout(template = 'plotly_dark')
 
 sexo_dict = {1:'Mujer', 2:'Hombre', 3:'No especificado'}
 
-cols = ['NEUMONIA', 'DIABETES', 'EPOC', 'INMUSUPR', 'ASMA', 'HIPERTENSION', 'CARDIOVASCULAR', 'OBESIDAD','RENAL_CRONICA', 'OTRA_COM', 'OTRO_CASO', 'SEXO', 'RESULTADO']
+cols = ['NEUMONIA', 'DIABETES', 'EPOC', 'INMUSUPR', 'ASMA', 'HIPERTENSION', 'CARDIOVASCULAR', 'OBESIDAD','RENAL_CRONICA', 'OTRA_COM', 'OTRO_CASO', 'SEXO', 'RESULTADO_LAB']
 ##yucatan[cols]
 #yuc3 = yucatan[cols]
 yuc3 = pd.DataFrame(data=yucatan[cols].values, columns =cols)
@@ -274,7 +274,7 @@ sex = [sexo_dict.get(v) for v in yuc3['SEXO'].values.tolist()]
 yuc3['Gender'] = np.asarray(sex)
 
 
-data3 = yuc3[yuc3['RESULTADO'] == 1]
+data3 = yuc3[yuc3['RESULTADO_LAB'] == 1]
 neumonia = data3[data3['NEUMONIA'] == 1]
 diabetes = data3[data3['DIABETES'] == 1]
 epoc = data3[data3['EPOC'] == 1]
@@ -298,17 +298,17 @@ fig2.update_layout(title="Comorbilidades",title_x=0.5, template = 'plotly_dark')
 
 
 ####################################
-fi = yucatan[(yucatan['RESULTADO'] == 1) & (yucatan['FECHA_INGRESO'] != '9999-99-99')]
+fi = yucatan[(yucatan['RESULTADO_LAB'] == 1) & (yucatan['FECHA_INGRESO'] != '9999-99-99')]
 fi['SEX'] = [sexo_dict.get(v) for v in fi['SEXO'].values.tolist()]
-fi2 = fi.groupby(['FECHA_INGRESO'])['RESULTADO'].value_counts()
+fi2 = fi.groupby(['FECHA_INGRESO'])['RESULTADO_LAB'].value_counts()
 fii = pd.Series(fi2.values, index = fi2.index).reset_index().rename(columns={0: 'SUMA'})
 fii['ACUMULADO'] = fii['SUMA'].cumsum() #acumulado de casos positivos
 
 
 #acumalo de casos negativos
-ni = yucatan[(yucatan['RESULTADO'] == 2) & (yucatan['FECHA_INGRESO'] != '9999-99-99')]
+ni = yucatan[(yucatan['RESULTADO_LAB'] == 2) & (yucatan['FECHA_INGRESO'] != '9999-99-99')]
 ni['SEX'] = [sexo_dict.get(v) for v in ni['SEXO'].values.tolist()]
-ni2 = ni.groupby(['FECHA_INGRESO'])['RESULTADO'].value_counts()
+ni2 = ni.groupby(['FECHA_INGRESO'])['RESULTADO_LAB'].value_counts()
 nii = pd.Series(ni2.values, index = ni2.index).reset_index().rename(columns={0: 'SUMA'})
 nii['ACUMULADO'] = nii['SUMA'].cumsum() #acumulado de casos negativos
 
